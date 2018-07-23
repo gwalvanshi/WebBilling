@@ -1,0 +1,105 @@
+﻿@model IEnumerable<BillingWeb.tblUser>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Users</h2>
+
+<div class="detail-box">
+
+    @if (((tblUser)ViewBag.Users).Id > 0)
+    {
+        Html.RenderPartial("Edit", (tblUser)ViewBag.Users);
+    }
+    else
+    {
+        Html.RenderPartial("Create", (tblUser)ViewBag.Users);
+    }
+
+</div>
+@if (TempData["Success"] != null)
+            {
+    <p class="alert alert-success" id="successMessage">@TempData["Success"]</p>
+}
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.UserName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Password)
+        </th>       
+        <th>
+            @Html.DisplayNameFor(model => model.IsActive)
+        </th>      
+        <th>
+            @Html.DisplayNameFor(model => model.tblRole.Role)
+        </th>
+        <th>Action</th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserName)
+        </td>
+        <td>
+           ********
+        </td>       
+        <td>          
+            @(item.IsActive == true ? "Yes" : "No")
+        </td>       
+        <td>
+            @Html.DisplayFor(modelItem => item.tblRole.Role)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |           
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id }, new { onclick = "return confirm('Are you sure you wish to delete this record?');" })
+        </td>
+    </tr>
+}
+
+</table>
+<script type="text/javascript">
+    function PasswordCompare() {
+        var isValid = true;
+        var UserName = $('#UserName').val();       
+        var Password1 = $('#Password').val();
+        var Password2 = $('#ConfirmPassword').val();
+        if (UserName == "")
+        {
+            alert("Please enter User Name.");
+            $("#UserName").focus();
+            return false;
+        }       
+        if (Password1 == "")
+        {
+            alert("Please enter Password.");
+            $("#Password1").focus();
+            isValid = false;
+        }
+        if (isValid) {
+            if (Password2 == "") {
+                alert("Please enter Password Confirmation.");
+                $("#Password2").focus();
+                isValid = false;
+            }
+        }
+        if (isValid) {
+            if (Password1 != Password2) {
+                alert("The entered password is not matched.");
+                $("#Password1").focus();
+                isValid = false;
+            }
+        }
+
+        if (isValid) {
+            return true;
+        }
+        else {
+            return false;
+        }
+
+    }
+</script>

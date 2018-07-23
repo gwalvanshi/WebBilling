@@ -1,0 +1,73 @@
+﻿@model IEnumerable<BillingWeb.tblTax>
+
+@{
+    ViewBag.Title = "Index";
+}
+<h2>Tax</h2>
+<div class="detail-box">
+
+    @if (((tblTax)ViewBag.Tax).TaxID > 0)
+    {
+        Html.RenderPartial("Edit", (tblTax)ViewBag.Tax);
+    }
+    else
+    {
+        Html.RenderPartial("Create", (tblTax)ViewBag.Tax);
+    }
+
+</div>
+@if (TempData["Success"] != null)
+            {
+    <p class="alert alert-success" id="successMessage">@TempData["Success"]</p>
+}
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TaxName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TaxPercentage)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EffectiveFrom)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsActive)
+        </th>       
+        <th>
+           Added By
+        </th>       
+        <th>Action</th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.TaxName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TaxPercentage)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EffectiveFrom)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @(item.IsActive == true ? "Yes" : "No")
+        </td>     
+        <td>
+            @Html.DisplayFor(modelItem => item.tblUser.UserName)
+        </td>      
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.TaxID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.TaxID }, new { onclick = "return confirm('Are you sure you wish to delete this record?');" })
+        </td>
+    </tr>
+}
+
+</table>
