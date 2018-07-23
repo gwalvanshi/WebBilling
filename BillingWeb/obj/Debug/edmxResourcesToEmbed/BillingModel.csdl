@@ -1,0 +1,1920 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Billing4Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="tblDeliveryMode">
+    <Key>
+      <PropertyRef Name="DeliveryModeID" />
+    </Key>
+    <Property Name="DeliveryModeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DeliveryMode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="tblDeliveryNotes" Relationship="Self.FK_tblDeliveryNote_tblDeliveryMode1" FromRole="tblDeliveryMode" ToRole="tblDeliveryNote" />
+  </EntityType>
+  <EntityType Name="tblDeliveryNote">
+    <Key>
+      <PropertyRef Name="DeliveryNoteID" />
+    </Key>
+    <Property Name="DeliveryNoteID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="InvoiceID" Type="Int32" />
+    <Property Name="CustomerName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="DeliveryModeID" Type="Int32" />
+    <Property Name="DeliveryDate" Type="DateTime" Precision="3" />
+    <Property Name="EstimatedDeliveryDate" Type="DateTime" Precision="3" />
+    <Property Name="Remarks" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <NavigationProperty Name="tblDeliveryMode" Relationship="Self.FK_tblDeliveryNote_tblDeliveryMode1" FromRole="tblDeliveryNote" ToRole="tblDeliveryMode" />
+    <NavigationProperty Name="tblInvoice" Relationship="Self.FK_tblDeliveryNote_tblInvoice" FromRole="tblDeliveryNote" ToRole="tblInvoice" />
+    <NavigationProperty Name="tblUser" Relationship="Self.FK_tblDeliveryNote_tblUser" FromRole="tblDeliveryNote" ToRole="tblUser" />
+    <NavigationProperty Name="tblUser1" Relationship="Self.FK_tblDeliveryNote_tblUser1" FromRole="tblDeliveryNote" ToRole="tblUser" />
+    <NavigationProperty Name="tblDeliveryNoteItems" Relationship="Self.FK_tblDeliveryNoteItem_tblDeliveryNote" FromRole="tblDeliveryNote" ToRole="tblDeliveryNoteItem" />
+  </EntityType>
+  <EntityType Name="tblDeliveryNoteItem">
+    <Key>
+      <PropertyRef Name="DeliveryNoteItemID" />
+    </Key>
+    <Property Name="DeliveryNoteItemID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DeliveryNoteID" Type="Int32" />
+    <Property Name="ProductID" Type="Int32" />
+    <Property Name="Make" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Quantity" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="UnitID" Type="Int32" />
+    <Property Name="SizeID" Type="Int32" />
+    <Property Name="RatePerUnit" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="TaxID" Type="Int32" />
+    <Property Name="Tax" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="TaxAmount" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Discount" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="DiscountAmount" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="TotalAmount" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Remark" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="HSN_SAC" Type="Int32" />
+    <Property Name="SGST" Type="Decimal" Precision="7" Scale="4" />
+    <Property Name="CGST" Type="Decimal" Precision="7" Scale="4" />
+    <NavigationProperty Name="tblDeliveryNote" Relationship="Self.FK_tblDeliveryNoteItem_tblDeliveryNote" FromRole="tblDeliveryNoteItem" ToRole="tblDeliveryNote" />
+    <NavigationProperty Name="tblProduct" Relationship="Self.FK_tblDeliveryNoteItem_tblProduct" FromRole="tblDeliveryNoteItem" ToRole="tblProduct" />
+    <NavigationProperty Name="tblSize" Relationship="Self.FK_tblDeliveryNoteItem_tblSize" FromRole="tblDeliveryNoteItem" ToRole="tblSize" />
+    <NavigationProperty Name="tblTax" Relationship="Self.FK_tblDeliveryNoteItem_tblTax" FromRole="tblDeliveryNoteItem" ToRole="tblTax" />
+    <NavigationProperty Name="tblUnit" Relationship="Self.FK_tblDeliveryNoteItem_tblUnit" FromRole="tblDeliveryNoteItem" ToRole="tblUnit" />
+  </EntityType>
+  <EntityType Name="tblInventory">
+    <Key>
+      <PropertyRef Name="InventoryID" />
+    </Key>
+    <Property Name="InventoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="InvoiceNo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="BillingAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ShippingAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="GSTIN" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CompanyName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="ContactPersonName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="ContactNumber" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Website" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="PaymentModeID" Type="Int32" Nullable="false" />
+    <Property Name="IsPaid" Type="Int32" />
+    <Property Name="IsOnCredit" Type="Int32" />
+    <Property Name="InventoryDate" Type="DateTime" Precision="3" />
+    <Property Name="ItemsReceivedOn" Type="DateTime" Precision="3" />
+    <Property Name="TotalAmount" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="TotalTaxAmount" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="PaymentDate" Type="DateTime" Precision="3" />
+    <Property Name="Remarks" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <NavigationProperty Name="tblPaymentMode" Relationship="Self.FK_tblInventory_tblPaymentMode1" FromRole="tblInventory" ToRole="tblPaymentMode" />
+    <NavigationProperty Name="tblUser" Relationship="Self.FK_tblInventory_tblUser" FromRole="tblInventory" ToRole="tblUser" />
+    <NavigationProperty Name="tblUser1" Relationship="Self.FK_tblInventory_tblUser1" FromRole="tblInventory" ToRole="tblUser" />
+    <NavigationProperty Name="tblInventoryItems" Relationship="Self.FK_tblInventoryItem_tblInventory" FromRole="tblInventory" ToRole="tblInventoryItem" />
+  </EntityType>
+  <EntityType Name="tblInventoryItem">
+    <Key>
+      <PropertyRef Name="InventoryItemID" />
+    </Key>
+    <Property Name="InventoryItemID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="InventoryID" Type="Int32" />
+    <Property Name="ProductID" Type="Int32" />
+    <Property Name="Make" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Quantity" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="UnitID" Type="Int32" />
+    <Property Name="SizeID" Type="Int32" />
+    <Property Name="RatePerUnit" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="TaxID" Type="Int32" />
+    <Property Name="Tax" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="TaxAmount" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Discount" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="DiscountAmount" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="TotalAmount" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Remark" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="HSN_SAC" Type="Int32" />
+    <Property Name="SGST" Type="Decimal" Precision="7" Scale="4" />
+    <Property Name="CGST" Type="Decimal" Precision="7" Scale="4" />
+    <NavigationProperty Name="tblInventory" Relationship="Self.FK_tblInventoryItem_tblInventory" FromRole="tblInventoryItem" ToRole="tblInventory" />
+    <NavigationProperty Name="tblProduct" Relationship="Self.FK_tblInventoryItem_tblProduct" FromRole="tblInventoryItem" ToRole="tblProduct" />
+    <NavigationProperty Name="tblSize" Relationship="Self.FK_tblInventoryItem_tblSize" FromRole="tblInventoryItem" ToRole="tblSize" />
+    <NavigationProperty Name="tblTax" Relationship="Self.FK_tblInventoryItem_tblTax" FromRole="tblInventoryItem" ToRole="tblTax" />
+    <NavigationProperty Name="tblUnit" Relationship="Self.FK_tblInventoryItem_tblUnit" FromRole="tblInventoryItem" ToRole="tblUnit" />
+  </EntityType>
+  <EntityType Name="tblInvoice">
+    <Key>
+      <PropertyRef Name="InvoiceID" />
+    </Key>
+    <Property Name="InvoiceID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="InvoiceNo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="BillingAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ShippingAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="InvoiceType" Type="Int32" />
+    <Property Name="GSTIN" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="CustomerName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="ContactNumber" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Website" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="PaymentModeID" Type="Int32" />
+    <Property Name="IsPaid" Type="Int32" />
+    <Property Name="IsOnCredit" Type="Int32" />
+    <Property Name="InvoiceDate" Type="DateTime" Precision="3" />
+    <Property Name="PaymentExpectedBy" Type="DateTime" Precision="3" />
+    <Property Name="Remarks" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <NavigationProperty Name="tblDeliveryNotes" Relationship="Self.FK_tblDeliveryNote_tblInvoice" FromRole="tblInvoice" ToRole="tblDeliveryNote" />
+    <NavigationProperty Name="tblPaymentMode" Relationship="Self.FK_tblInvoice_tblPaymentMode1" FromRole="tblInvoice" ToRole="tblPaymentMode" />
+    <NavigationProperty Name="tblUser" Relationship="Self.FK_tblInvoice_tblUser" FromRole="tblInvoice" ToRole="tblUser" />
+    <NavigationProperty Name="tblUser1" Relationship="Self.FK_tblInvoice_tblUser1" FromRole="tblInvoice" ToRole="tblUser" />
+    <NavigationProperty Name="tblInvoiceItems" Relationship="Self.FK_tblInvoiceItem_tblInvoice" FromRole="tblInvoice" ToRole="tblInvoiceItem" />
+  </EntityType>
+  <EntityType Name="tblInvoiceItem">
+    <Key>
+      <PropertyRef Name="InvoiceItemID" />
+    </Key>
+    <Property Name="InvoiceItemID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="InvoiceID" Type="Int32" />
+    <Property Name="ProductID" Type="Int32" />
+    <Property Name="Make" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Quantity" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="UnitID" Type="Int32" />
+    <Property Name="SizeID" Type="Int32" />
+    <Property Name="RatePerUnit" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="TaxID" Type="Int32" />
+    <Property Name="Tax" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="TaxAmount" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Discount" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="DiscountAmount" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="TotalAmount" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Remark" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="HSN_SAC" Type="Int32" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <Property Name="SGST" Type="Decimal" Precision="7" Scale="4" />
+    <Property Name="CGST" Type="Decimal" Precision="7" Scale="4" />
+    <NavigationProperty Name="tblInvoice" Relationship="Self.FK_tblInvoiceItem_tblInvoice" FromRole="tblInvoiceItem" ToRole="tblInvoice" />
+    <NavigationProperty Name="tblInvoiceItem1" Relationship="Self.FK_tblInvoiceItem_tblInvoiceItem" FromRole="tblInvoiceItem" ToRole="tblInvoiceItem1" />
+    <NavigationProperty Name="tblInvoiceItem2" Relationship="Self.FK_tblInvoiceItem_tblInvoiceItem" FromRole="tblInvoiceItem1" ToRole="tblInvoiceItem" />
+    <NavigationProperty Name="tblProduct" Relationship="Self.FK_tblInvoiceItem_tblProduct" FromRole="tblInvoiceItem" ToRole="tblProduct" />
+    <NavigationProperty Name="tblSize" Relationship="Self.FK_tblInvoiceItem_tblSize" FromRole="tblInvoiceItem" ToRole="tblSize" />
+    <NavigationProperty Name="tblTax" Relationship="Self.FK_tblInvoiceItem_tblTax" FromRole="tblInvoiceItem" ToRole="tblTax" />
+    <NavigationProperty Name="tblUnit" Relationship="Self.FK_tblInvoiceItem_tblUnit" FromRole="tblInvoiceItem" ToRole="tblUnit" />
+  </EntityType>
+  <EntityType Name="tblMeasurementUnit">
+    <Key>
+      <PropertyRef Name="UnitID" />
+    </Key>
+    <Property Name="UnitID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UnitName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <NavigationProperty Name="tblUser" Relationship="Self.FK_tblMeasurementUnit_tblMeasurementUnit" FromRole="tblMeasurementUnit" ToRole="tblUser" />
+    <NavigationProperty Name="tblUser1" Relationship="Self.FK_tblMeasurementUnit_tblUser" FromRole="tblMeasurementUnit" ToRole="tblUser" />
+  </EntityType>
+  <EntityType Name="tblPaymentMode">
+    <Key>
+      <PropertyRef Name="PaymentModeID" />
+    </Key>
+    <Property Name="PaymentModeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PaymentMode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="tblInventories" Relationship="Self.FK_tblInventory_tblPaymentMode1" FromRole="tblPaymentMode" ToRole="tblInventory" />
+    <NavigationProperty Name="tblInvoices" Relationship="Self.FK_tblInvoice_tblPaymentMode1" FromRole="tblPaymentMode" ToRole="tblInvoice" />
+    <NavigationProperty Name="tblQuotations" Relationship="Self.FK_tblQuotation_tblPaymentMode1" FromRole="tblPaymentMode" ToRole="tblQuotation" />
+  </EntityType>
+  <EntityType Name="tblProduct">
+    <Key>
+      <PropertyRef Name="ProductID" />
+    </Key>
+    <Property Name="ProductID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProductCategoryID" Type="Int32" />
+    <Property Name="ProductSubCategoryID" Type="Int32" />
+    <Property Name="ProductName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="ProductDescription" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Make" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="TaxID" Type="Int32" />
+    <Property Name="SizeID" Type="Int32" />
+    <Property Name="RatePerUnit" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Discount" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Remark" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <Property Name="UnitID" Type="Int32" />
+    <Property Name="SGST" Type="Decimal" Precision="7" Scale="4" />
+    <Property Name="CGST" Type="Decimal" Precision="7" Scale="4" />
+    <NavigationProperty Name="tblDeliveryNoteItems" Relationship="Self.FK_tblDeliveryNoteItem_tblProduct" FromRole="tblProduct" ToRole="tblDeliveryNoteItem" />
+    <NavigationProperty Name="tblInventoryItems" Relationship="Self.FK_tblInventoryItem_tblProduct" FromRole="tblProduct" ToRole="tblInventoryItem" />
+    <NavigationProperty Name="tblInvoiceItems" Relationship="Self.FK_tblInvoiceItem_tblProduct" FromRole="tblProduct" ToRole="tblInvoiceItem" />
+    <NavigationProperty Name="tblProductCategory" Relationship="Self.FK_tblProduct_tblProductCategory" FromRole="tblProduct" ToRole="tblProductCategory" />
+    <NavigationProperty Name="tblProductSubCategory" Relationship="Self.FK_tblProduct_tblProductSubCategory" FromRole="tblProduct" ToRole="tblProductSubCategory" />
+    <NavigationProperty Name="tblSize" Relationship="Self.FK_tblProduct_tblSize" FromRole="tblProduct" ToRole="tblSize" />
+    <NavigationProperty Name="tblTax" Relationship="Self.FK_tblProduct_tblTax" FromRole="tblProduct" ToRole="tblTax" />
+    <NavigationProperty Name="tblUnit" Relationship="Self.FK_tblProduct_tblUnit" FromRole="tblProduct" ToRole="tblUnit" />
+    <NavigationProperty Name="tblUser" Relationship="Self.FK_tblProduct_tblUser" FromRole="tblProduct" ToRole="tblUser" />
+    <NavigationProperty Name="tblUser1" Relationship="Self.FK_tblProduct_tblUser1" FromRole="tblProduct" ToRole="tblUser" />
+    <NavigationProperty Name="tblQuotationItems" Relationship="Self.FK_tblQuotationItem_tblProduct" FromRole="tblProduct" ToRole="tblQuotationItem" />
+  </EntityType>
+  <EntityType Name="tblProductCategory">
+    <Key>
+      <PropertyRef Name="ProductCategoryID" />
+    </Key>
+    <Property Name="ProductCategoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CategoryName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="HSN_SAC" Type="Int32" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <Property Name="IsActive" Type="Boolean" />
+    <NavigationProperty Name="tblProducts" Relationship="Self.FK_tblProduct_tblProductCategory" FromRole="tblProductCategory" ToRole="tblProduct" />
+    <NavigationProperty Name="tblProductSubCategories" Relationship="Self.FK_tblProductSubCategory_tblProductCategory" FromRole="tblProductCategory" ToRole="tblProductSubCategory" />
+  </EntityType>
+  <EntityType Name="tblProductSubCategory">
+    <Key>
+      <PropertyRef Name="ProductSubCategoryID" />
+    </Key>
+    <Property Name="ProductSubCategoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProductCategoryID" Type="Int32" Nullable="false" />
+    <Property Name="SubCategoryName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <NavigationProperty Name="tblProducts" Relationship="Self.FK_tblProduct_tblProductSubCategory" FromRole="tblProductSubCategory" ToRole="tblProduct" />
+    <NavigationProperty Name="tblProductCategory" Relationship="Self.FK_tblProductSubCategory_tblProductCategory" FromRole="tblProductSubCategory" ToRole="tblProductCategory" />
+  </EntityType>
+  <EntityType Name="tblQuotation">
+    <Key>
+      <PropertyRef Name="QuotationID" />
+    </Key>
+    <Property Name="QuotationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CustomerName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="PaymentModeID" Type="Int32" />
+    <Property Name="QuotationDate" Type="DateTime" Precision="3" />
+    <Property Name="PurchaseExpectedBy" Type="DateTime" Precision="3" />
+    <Property Name="Remarks" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <NavigationProperty Name="tblPaymentMode" Relationship="Self.FK_tblQuotation_tblPaymentMode1" FromRole="tblQuotation" ToRole="tblPaymentMode" />
+    <NavigationProperty Name="tblUser" Relationship="Self.FK_tblQuotation_tblUser" FromRole="tblQuotation" ToRole="tblUser" />
+    <NavigationProperty Name="tblUser1" Relationship="Self.FK_tblQuotation_tblUser1" FromRole="tblQuotation" ToRole="tblUser" />
+    <NavigationProperty Name="tblQuotationItems" Relationship="Self.FK_tblQuotationItem_tblQuotation" FromRole="tblQuotation" ToRole="tblQuotationItem" />
+  </EntityType>
+  <EntityType Name="tblQuotationItem">
+    <Key>
+      <PropertyRef Name="QuotationItemID" />
+    </Key>
+    <Property Name="QuotationItemID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="QuotationID" Type="Int32" />
+    <Property Name="ProductID" Type="Int32" />
+    <Property Name="Make" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Quantity" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="UnitID" Type="Int32" />
+    <Property Name="SizeID" Type="Int32" />
+    <Property Name="RatePerUnit" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="TaxID" Type="Int32" />
+    <Property Name="Tax" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="TaxAmount" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Discount" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="DiscountAmount" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="TotalAmount" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Remark" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="HSN_SAC" Type="Int32" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="SGST" Type="Decimal" Precision="7" Scale="4" />
+    <Property Name="CGST" Type="Decimal" Precision="7" Scale="4" />
+    <NavigationProperty Name="tblProduct" Relationship="Self.FK_tblQuotationItem_tblProduct" FromRole="tblQuotationItem" ToRole="tblProduct" />
+    <NavigationProperty Name="tblQuotation" Relationship="Self.FK_tblQuotationItem_tblQuotation" FromRole="tblQuotationItem" ToRole="tblQuotation" />
+    <NavigationProperty Name="tblSize" Relationship="Self.FK_tblQuotationItem_tblSize" FromRole="tblQuotationItem" ToRole="tblSize" />
+    <NavigationProperty Name="tblTax" Relationship="Self.FK_tblQuotationItem_tblTax" FromRole="tblQuotationItem" ToRole="tblTax" />
+    <NavigationProperty Name="tblUnit" Relationship="Self.FK_tblQuotationItem_tblUnit" FromRole="tblQuotationItem" ToRole="tblUnit" />
+  </EntityType>
+  <EntityType Name="tblRole">
+    <Key>
+      <PropertyRef Name="RoleId" />
+    </Key>
+    <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Role" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="tblUsers" Relationship="Self.FK_tblUser_tblRole" FromRole="tblRole" ToRole="tblUser" />
+  </EntityType>
+  <EntityType Name="tblSize">
+    <Key>
+      <PropertyRef Name="SizeID" />
+    </Key>
+    <Property Name="SizeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SizeName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="SizeDescription" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="UnitID" Type="Int32" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <NavigationProperty Name="tblDeliveryNoteItems" Relationship="Self.FK_tblDeliveryNoteItem_tblSize" FromRole="tblSize" ToRole="tblDeliveryNoteItem" />
+    <NavigationProperty Name="tblInventoryItems" Relationship="Self.FK_tblInventoryItem_tblSize" FromRole="tblSize" ToRole="tblInventoryItem" />
+    <NavigationProperty Name="tblInvoiceItems" Relationship="Self.FK_tblInvoiceItem_tblSize" FromRole="tblSize" ToRole="tblInvoiceItem" />
+    <NavigationProperty Name="tblProducts" Relationship="Self.FK_tblProduct_tblSize" FromRole="tblSize" ToRole="tblProduct" />
+    <NavigationProperty Name="tblQuotationItems" Relationship="Self.FK_tblQuotationItem_tblSize" FromRole="tblSize" ToRole="tblQuotationItem" />
+    <NavigationProperty Name="tblUnit" Relationship="Self.FK_tblSize_tblUnit" FromRole="tblSize" ToRole="tblUnit" />
+    <NavigationProperty Name="tblUser" Relationship="Self.FK_tblSize_tblUser" FromRole="tblSize" ToRole="tblUser" />
+    <NavigationProperty Name="tblUser1" Relationship="Self.FK_tblSize_tblUser1" FromRole="tblSize" ToRole="tblUser" />
+    <NavigationProperty Name="tblStocks" Relationship="Self.FK_tblStock_tblSize" FromRole="tblSize" ToRole="tblStock" />
+  </EntityType>
+  <EntityType Name="tblStock">
+    <Key>
+      <PropertyRef Name="StockID" />
+    </Key>
+    <Property Name="StockID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProductID" Type="Int32" />
+    <Property Name="Make" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Quantity" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="UnitID" Type="Int32" />
+    <Property Name="SizeID" Type="Int32" />
+    <Property Name="RatePerUnit" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="TaxID" Type="Int32" />
+    <Property Name="Tax" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="TaxAmount" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Discount" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="DiscountAmount" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="TotalAmount" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Remark" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <Property Name="SGST" Type="Decimal" Precision="7" Scale="4" />
+    <Property Name="CGST" Type="Decimal" Precision="7" Scale="4" />
+    <NavigationProperty Name="tblSize" Relationship="Self.FK_tblStock_tblSize" FromRole="tblStock" ToRole="tblSize" />
+    <NavigationProperty Name="tblTax" Relationship="Self.FK_tblStock_tblTax" FromRole="tblStock" ToRole="tblTax" />
+    <NavigationProperty Name="tblUnit" Relationship="Self.FK_tblStock_tblUnit" FromRole="tblStock" ToRole="tblUnit" />
+    <NavigationProperty Name="tblUser" Relationship="Self.FK_tblStock_tblUser" FromRole="tblStock" ToRole="tblUser" />
+    <NavigationProperty Name="tblUser1" Relationship="Self.FK_tblStock_tblUser1" FromRole="tblStock" ToRole="tblUser" />
+  </EntityType>
+  <EntityType Name="tblTax">
+    <Key>
+      <PropertyRef Name="TaxID" />
+    </Key>
+    <Property Name="TaxID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TaxName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="TaxPercentage" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="EffectiveFrom" Type="DateTime" Precision="3" />
+    <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <NavigationProperty Name="tblDeliveryNoteItems" Relationship="Self.FK_tblDeliveryNoteItem_tblTax" FromRole="tblTax" ToRole="tblDeliveryNoteItem" />
+    <NavigationProperty Name="tblInventoryItems" Relationship="Self.FK_tblInventoryItem_tblTax" FromRole="tblTax" ToRole="tblInventoryItem" />
+    <NavigationProperty Name="tblInvoiceItems" Relationship="Self.FK_tblInvoiceItem_tblTax" FromRole="tblTax" ToRole="tblInvoiceItem" />
+    <NavigationProperty Name="tblProducts" Relationship="Self.FK_tblProduct_tblTax" FromRole="tblTax" ToRole="tblProduct" />
+    <NavigationProperty Name="tblQuotationItems" Relationship="Self.FK_tblQuotationItem_tblTax" FromRole="tblTax" ToRole="tblQuotationItem" />
+    <NavigationProperty Name="tblStocks" Relationship="Self.FK_tblStock_tblTax" FromRole="tblTax" ToRole="tblStock" />
+    <NavigationProperty Name="tblUser" Relationship="Self.FK_tblTax_tblUser" FromRole="tblTax" ToRole="tblUser" />
+    <NavigationProperty Name="tblUser1" Relationship="Self.FK_tblTax_tblUser1" FromRole="tblTax" ToRole="tblUser" />
+  </EntityType>
+  <EntityType Name="tblUnit">
+    <Key>
+      <PropertyRef Name="UnitID" />
+    </Key>
+    <Property Name="UnitID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <NavigationProperty Name="tblDeliveryNoteItems" Relationship="Self.FK_tblDeliveryNoteItem_tblUnit" FromRole="tblUnit" ToRole="tblDeliveryNoteItem" />
+    <NavigationProperty Name="tblInventoryItems" Relationship="Self.FK_tblInventoryItem_tblUnit" FromRole="tblUnit" ToRole="tblInventoryItem" />
+    <NavigationProperty Name="tblInvoiceItems" Relationship="Self.FK_tblInvoiceItem_tblUnit" FromRole="tblUnit" ToRole="tblInvoiceItem" />
+    <NavigationProperty Name="tblProducts" Relationship="Self.FK_tblProduct_tblUnit" FromRole="tblUnit" ToRole="tblProduct" />
+    <NavigationProperty Name="tblQuotationItems" Relationship="Self.FK_tblQuotationItem_tblUnit" FromRole="tblUnit" ToRole="tblQuotationItem" />
+    <NavigationProperty Name="tblSizes" Relationship="Self.FK_tblSize_tblUnit" FromRole="tblUnit" ToRole="tblSize" />
+    <NavigationProperty Name="tblStocks" Relationship="Self.FK_tblStock_tblUnit" FromRole="tblUnit" ToRole="tblStock" />
+    <NavigationProperty Name="tblUser" Relationship="Self.FK_tblUnit_tblUser" FromRole="tblUnit" ToRole="tblUser" />
+    <NavigationProperty Name="tblUser1" Relationship="Self.FK_tblUnit_tblUser1" FromRole="tblUnit" ToRole="tblUser" />
+  </EntityType>
+  <EntityType Name="tblUser">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="RoleId" Type="Int32" />
+    <Property Name="AddedBy" Type="Int32" />
+    <NavigationProperty Name="tblDeliveryNotes" Relationship="Self.FK_tblDeliveryNote_tblUser" FromRole="tblUser" ToRole="tblDeliveryNote" />
+    <NavigationProperty Name="tblDeliveryNotes1" Relationship="Self.FK_tblDeliveryNote_tblUser1" FromRole="tblUser" ToRole="tblDeliveryNote" />
+    <NavigationProperty Name="tblInventories" Relationship="Self.FK_tblInventory_tblUser" FromRole="tblUser" ToRole="tblInventory" />
+    <NavigationProperty Name="tblInventories1" Relationship="Self.FK_tblInventory_tblUser1" FromRole="tblUser" ToRole="tblInventory" />
+    <NavigationProperty Name="tblInvoices" Relationship="Self.FK_tblInvoice_tblUser" FromRole="tblUser" ToRole="tblInvoice" />
+    <NavigationProperty Name="tblInvoices1" Relationship="Self.FK_tblInvoice_tblUser1" FromRole="tblUser" ToRole="tblInvoice" />
+    <NavigationProperty Name="tblMeasurementUnits" Relationship="Self.FK_tblMeasurementUnit_tblMeasurementUnit" FromRole="tblUser" ToRole="tblMeasurementUnit" />
+    <NavigationProperty Name="tblMeasurementUnits1" Relationship="Self.FK_tblMeasurementUnit_tblUser" FromRole="tblUser" ToRole="tblMeasurementUnit" />
+    <NavigationProperty Name="tblProducts" Relationship="Self.FK_tblProduct_tblUser" FromRole="tblUser" ToRole="tblProduct" />
+    <NavigationProperty Name="tblProducts1" Relationship="Self.FK_tblProduct_tblUser1" FromRole="tblUser" ToRole="tblProduct" />
+    <NavigationProperty Name="tblQuotations" Relationship="Self.FK_tblQuotation_tblUser" FromRole="tblUser" ToRole="tblQuotation" />
+    <NavigationProperty Name="tblQuotations1" Relationship="Self.FK_tblQuotation_tblUser1" FromRole="tblUser" ToRole="tblQuotation" />
+    <NavigationProperty Name="tblRole" Relationship="Self.FK_tblUser_tblRole" FromRole="tblUser" ToRole="tblRole" />
+    <NavigationProperty Name="tblSizes" Relationship="Self.FK_tblSize_tblUser" FromRole="tblUser" ToRole="tblSize" />
+    <NavigationProperty Name="tblSizes1" Relationship="Self.FK_tblSize_tblUser1" FromRole="tblUser" ToRole="tblSize" />
+    <NavigationProperty Name="tblStocks" Relationship="Self.FK_tblStock_tblUser" FromRole="tblUser" ToRole="tblStock" />
+    <NavigationProperty Name="tblStocks1" Relationship="Self.FK_tblStock_tblUser1" FromRole="tblUser" ToRole="tblStock" />
+    <NavigationProperty Name="tblTaxes" Relationship="Self.FK_tblTax_tblUser" FromRole="tblUser" ToRole="tblTax" />
+    <NavigationProperty Name="tblTaxes1" Relationship="Self.FK_tblTax_tblUser1" FromRole="tblUser" ToRole="tblTax" />
+    <NavigationProperty Name="tblUnits" Relationship="Self.FK_tblUnit_tblUser" FromRole="tblUser" ToRole="tblUnit" />
+    <NavigationProperty Name="tblUnits1" Relationship="Self.FK_tblUnit_tblUser1" FromRole="tblUser" ToRole="tblUnit" />
+  </EntityType>
+  <Association Name="FK_tblDeliveryNote_tblDeliveryMode1">
+    <End Role="tblDeliveryMode" Type="Self.tblDeliveryMode" Multiplicity="0..1" />
+    <End Role="tblDeliveryNote" Type="Self.tblDeliveryNote" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblDeliveryMode">
+        <PropertyRef Name="DeliveryModeID" />
+      </Principal>
+      <Dependent Role="tblDeliveryNote">
+        <PropertyRef Name="DeliveryModeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblDeliveryNote_tblInvoice">
+    <End Role="tblInvoice" Type="Self.tblInvoice" Multiplicity="0..1" />
+    <End Role="tblDeliveryNote" Type="Self.tblDeliveryNote" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblInvoice">
+        <PropertyRef Name="InvoiceID" />
+      </Principal>
+      <Dependent Role="tblDeliveryNote">
+        <PropertyRef Name="InvoiceID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblDeliveryNote_tblUser">
+    <End Role="tblUser" Type="Self.tblUser" Multiplicity="0..1" />
+    <End Role="tblDeliveryNote" Type="Self.tblDeliveryNote" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tblDeliveryNote">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblDeliveryNote_tblUser1">
+    <End Role="tblUser" Type="Self.tblUser" Multiplicity="0..1" />
+    <End Role="tblDeliveryNote" Type="Self.tblDeliveryNote" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tblDeliveryNote">
+        <PropertyRef Name="UpdatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblDeliveryNoteItem_tblDeliveryNote">
+    <End Role="tblDeliveryNote" Type="Self.tblDeliveryNote" Multiplicity="0..1" />
+    <End Role="tblDeliveryNoteItem" Type="Self.tblDeliveryNoteItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblDeliveryNote">
+        <PropertyRef Name="DeliveryNoteID" />
+      </Principal>
+      <Dependent Role="tblDeliveryNoteItem">
+        <PropertyRef Name="DeliveryNoteID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblDeliveryNoteItem_tblProduct">
+    <End Role="tblProduct" Type="Self.tblProduct" Multiplicity="0..1" />
+    <End Role="tblDeliveryNoteItem" Type="Self.tblDeliveryNoteItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblProduct">
+        <PropertyRef Name="ProductID" />
+      </Principal>
+      <Dependent Role="tblDeliveryNoteItem">
+        <PropertyRef Name="ProductID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblDeliveryNoteItem_tblSize">
+    <End Role="tblSize" Type="Self.tblSize" Multiplicity="0..1" />
+    <End Role="tblDeliveryNoteItem" Type="Self.tblDeliveryNoteItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblSize">
+        <PropertyRef Name="SizeID" />
+      </Principal>
+      <Dependent Role="tblDeliveryNoteItem">
+        <PropertyRef Name="SizeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblDeliveryNoteItem_tblTax">
+    <End Role="tblTax" Type="Self.tblTax" Multiplicity="0..1" />
+    <End Role="tblDeliveryNoteItem" Type="Self.tblDeliveryNoteItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblTax">
+        <PropertyRef Name="TaxID" />
+      </Principal>
+      <Dependent Role="tblDeliveryNoteItem">
+        <PropertyRef Name="TaxID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblDeliveryNoteItem_tblUnit">
+    <End Role="tblUnit" Type="Self.tblUnit" Multiplicity="0..1" />
+    <End Role="tblDeliveryNoteItem" Type="Self.tblDeliveryNoteItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblUnit">
+        <PropertyRef Name="UnitID" />
+      </Principal>
+      <Dependent Role="tblDeliveryNoteItem">
+        <PropertyRef Name="UnitID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblInventory_tblPaymentMode1">
+    <End Role="tblPaymentMode" Type="Self.tblPaymentMode" Multiplicity="1" />
+    <End Role="tblInventory" Type="Self.tblInventory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblPaymentMode">
+        <PropertyRef Name="PaymentModeID" />
+      </Principal>
+      <Dependent Role="tblInventory">
+        <PropertyRef Name="PaymentModeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblInventory_tblUser">
+    <End Role="tblUser" Type="Self.tblUser" Multiplicity="0..1" />
+    <End Role="tblInventory" Type="Self.tblInventory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tblInventory">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblInventory_tblUser1">
+    <End Role="tblUser" Type="Self.tblUser" Multiplicity="0..1" />
+    <End Role="tblInventory" Type="Self.tblInventory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tblInventory">
+        <PropertyRef Name="UpdatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblInventoryItem_tblInventory">
+    <End Role="tblInventory" Type="Self.tblInventory" Multiplicity="0..1" />
+    <End Role="tblInventoryItem" Type="Self.tblInventoryItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblInventory">
+        <PropertyRef Name="InventoryID" />
+      </Principal>
+      <Dependent Role="tblInventoryItem">
+        <PropertyRef Name="InventoryID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblInventoryItem_tblProduct">
+    <End Role="tblProduct" Type="Self.tblProduct" Multiplicity="0..1" />
+    <End Role="tblInventoryItem" Type="Self.tblInventoryItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblProduct">
+        <PropertyRef Name="ProductID" />
+      </Principal>
+      <Dependent Role="tblInventoryItem">
+        <PropertyRef Name="ProductID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblInventoryItem_tblSize">
+    <End Role="tblSize" Type="Self.tblSize" Multiplicity="0..1" />
+    <End Role="tblInventoryItem" Type="Self.tblInventoryItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblSize">
+        <PropertyRef Name="SizeID" />
+      </Principal>
+      <Dependent Role="tblInventoryItem">
+        <PropertyRef Name="SizeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblInventoryItem_tblTax">
+    <End Role="tblTax" Type="Self.tblTax" Multiplicity="0..1" />
+    <End Role="tblInventoryItem" Type="Self.tblInventoryItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblTax">
+        <PropertyRef Name="TaxID" />
+      </Principal>
+      <Dependent Role="tblInventoryItem">
+        <PropertyRef Name="TaxID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblInventoryItem_tblUnit">
+    <End Role="tblUnit" Type="Self.tblUnit" Multiplicity="0..1" />
+    <End Role="tblInventoryItem" Type="Self.tblInventoryItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblUnit">
+        <PropertyRef Name="UnitID" />
+      </Principal>
+      <Dependent Role="tblInventoryItem">
+        <PropertyRef Name="UnitID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblInvoice_tblPaymentMode1">
+    <End Role="tblPaymentMode" Type="Self.tblPaymentMode" Multiplicity="0..1" />
+    <End Role="tblInvoice" Type="Self.tblInvoice" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblPaymentMode">
+        <PropertyRef Name="PaymentModeID" />
+      </Principal>
+      <Dependent Role="tblInvoice">
+        <PropertyRef Name="PaymentModeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblInvoice_tblUser">
+    <End Role="tblUser" Type="Self.tblUser" Multiplicity="0..1" />
+    <End Role="tblInvoice" Type="Self.tblInvoice" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tblInvoice">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblInvoice_tblUser1">
+    <End Role="tblUser" Type="Self.tblUser" Multiplicity="0..1" />
+    <End Role="tblInvoice" Type="Self.tblInvoice" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tblInvoice">
+        <PropertyRef Name="UpdatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblInvoiceItem_tblInvoice">
+    <End Role="tblInvoice" Type="Self.tblInvoice" Multiplicity="0..1" />
+    <End Role="tblInvoiceItem" Type="Self.tblInvoiceItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblInvoice">
+        <PropertyRef Name="InvoiceID" />
+      </Principal>
+      <Dependent Role="tblInvoiceItem">
+        <PropertyRef Name="InvoiceID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblInvoiceItem_tblInvoiceItem">
+    <End Role="tblInvoiceItem" Type="Self.tblInvoiceItem" Multiplicity="1" />
+    <End Role="tblInvoiceItem1" Type="Self.tblInvoiceItem" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="tblInvoiceItem">
+        <PropertyRef Name="InvoiceItemID" />
+      </Principal>
+      <Dependent Role="tblInvoiceItem1">
+        <PropertyRef Name="InvoiceItemID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblInvoiceItem_tblProduct">
+    <End Role="tblProduct" Type="Self.tblProduct" Multiplicity="0..1" />
+    <End Role="tblInvoiceItem" Type="Self.tblInvoiceItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblProduct">
+        <PropertyRef Name="ProductID" />
+      </Principal>
+      <Dependent Role="tblInvoiceItem">
+        <PropertyRef Name="ProductID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblInvoiceItem_tblSize">
+    <End Role="tblSize" Type="Self.tblSize" Multiplicity="0..1" />
+    <End Role="tblInvoiceItem" Type="Self.tblInvoiceItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblSize">
+        <PropertyRef Name="SizeID" />
+      </Principal>
+      <Dependent Role="tblInvoiceItem">
+        <PropertyRef Name="SizeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblInvoiceItem_tblTax">
+    <End Role="tblTax" Type="Self.tblTax" Multiplicity="0..1" />
+    <End Role="tblInvoiceItem" Type="Self.tblInvoiceItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblTax">
+        <PropertyRef Name="TaxID" />
+      </Principal>
+      <Dependent Role="tblInvoiceItem">
+        <PropertyRef Name="TaxID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblInvoiceItem_tblUnit">
+    <End Role="tblUnit" Type="Self.tblUnit" Multiplicity="0..1" />
+    <End Role="tblInvoiceItem" Type="Self.tblInvoiceItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblUnit">
+        <PropertyRef Name="UnitID" />
+      </Principal>
+      <Dependent Role="tblInvoiceItem">
+        <PropertyRef Name="UnitID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblMeasurementUnit_tblMeasurementUnit">
+    <End Role="tblUser" Type="Self.tblUser" Multiplicity="0..1" />
+    <End Role="tblMeasurementUnit" Type="Self.tblMeasurementUnit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tblMeasurementUnit">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblMeasurementUnit_tblUser">
+    <End Role="tblUser" Type="Self.tblUser" Multiplicity="0..1" />
+    <End Role="tblMeasurementUnit" Type="Self.tblMeasurementUnit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tblMeasurementUnit">
+        <PropertyRef Name="UpdatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblQuotation_tblPaymentMode1">
+    <End Role="tblPaymentMode" Type="Self.tblPaymentMode" Multiplicity="0..1" />
+    <End Role="tblQuotation" Type="Self.tblQuotation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblPaymentMode">
+        <PropertyRef Name="PaymentModeID" />
+      </Principal>
+      <Dependent Role="tblQuotation">
+        <PropertyRef Name="PaymentModeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblProduct_tblProductCategory">
+    <End Role="tblProductCategory" Type="Self.tblProductCategory" Multiplicity="0..1" />
+    <End Role="tblProduct" Type="Self.tblProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblProductCategory">
+        <PropertyRef Name="ProductCategoryID" />
+      </Principal>
+      <Dependent Role="tblProduct">
+        <PropertyRef Name="ProductCategoryID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblProduct_tblProductSubCategory">
+    <End Role="tblProductSubCategory" Type="Self.tblProductSubCategory" Multiplicity="0..1" />
+    <End Role="tblProduct" Type="Self.tblProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblProductSubCategory">
+        <PropertyRef Name="ProductSubCategoryID" />
+      </Principal>
+      <Dependent Role="tblProduct">
+        <PropertyRef Name="ProductSubCategoryID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblProduct_tblSize">
+    <End Role="tblSize" Type="Self.tblSize" Multiplicity="0..1" />
+    <End Role="tblProduct" Type="Self.tblProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblSize">
+        <PropertyRef Name="SizeID" />
+      </Principal>
+      <Dependent Role="tblProduct">
+        <PropertyRef Name="SizeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblProduct_tblTax">
+    <End Role="tblTax" Type="Self.tblTax" Multiplicity="0..1" />
+    <End Role="tblProduct" Type="Self.tblProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblTax">
+        <PropertyRef Name="TaxID" />
+      </Principal>
+      <Dependent Role="tblProduct">
+        <PropertyRef Name="TaxID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblProduct_tblUnit">
+    <End Role="tblUnit" Type="Self.tblUnit" Multiplicity="0..1" />
+    <End Role="tblProduct" Type="Self.tblProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblUnit">
+        <PropertyRef Name="UnitID" />
+      </Principal>
+      <Dependent Role="tblProduct">
+        <PropertyRef Name="UnitID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblProduct_tblUser">
+    <End Role="tblUser" Type="Self.tblUser" Multiplicity="0..1" />
+    <End Role="tblProduct" Type="Self.tblProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tblProduct">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblProduct_tblUser1">
+    <End Role="tblUser" Type="Self.tblUser" Multiplicity="0..1" />
+    <End Role="tblProduct" Type="Self.tblProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tblProduct">
+        <PropertyRef Name="UpdatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblQuotationItem_tblProduct">
+    <End Role="tblProduct" Type="Self.tblProduct" Multiplicity="0..1" />
+    <End Role="tblQuotationItem" Type="Self.tblQuotationItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblProduct">
+        <PropertyRef Name="ProductID" />
+      </Principal>
+      <Dependent Role="tblQuotationItem">
+        <PropertyRef Name="ProductID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblProductSubCategory_tblProductCategory">
+    <End Role="tblProductCategory" Type="Self.tblProductCategory" Multiplicity="1" />
+    <End Role="tblProductSubCategory" Type="Self.tblProductSubCategory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblProductCategory">
+        <PropertyRef Name="ProductCategoryID" />
+      </Principal>
+      <Dependent Role="tblProductSubCategory">
+        <PropertyRef Name="ProductCategoryID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblQuotation_tblUser">
+    <End Role="tblUser" Type="Self.tblUser" Multiplicity="0..1" />
+    <End Role="tblQuotation" Type="Self.tblQuotation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tblQuotation">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblQuotation_tblUser1">
+    <End Role="tblUser" Type="Self.tblUser" Multiplicity="0..1" />
+    <End Role="tblQuotation" Type="Self.tblQuotation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tblQuotation">
+        <PropertyRef Name="UpdatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblQuotationItem_tblQuotation">
+    <End Role="tblQuotation" Type="Self.tblQuotation" Multiplicity="0..1" />
+    <End Role="tblQuotationItem" Type="Self.tblQuotationItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblQuotation">
+        <PropertyRef Name="QuotationID" />
+      </Principal>
+      <Dependent Role="tblQuotationItem">
+        <PropertyRef Name="QuotationID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblQuotationItem_tblSize">
+    <End Role="tblSize" Type="Self.tblSize" Multiplicity="0..1" />
+    <End Role="tblQuotationItem" Type="Self.tblQuotationItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblSize">
+        <PropertyRef Name="SizeID" />
+      </Principal>
+      <Dependent Role="tblQuotationItem">
+        <PropertyRef Name="SizeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblQuotationItem_tblTax">
+    <End Role="tblTax" Type="Self.tblTax" Multiplicity="0..1" />
+    <End Role="tblQuotationItem" Type="Self.tblQuotationItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblTax">
+        <PropertyRef Name="TaxID" />
+      </Principal>
+      <Dependent Role="tblQuotationItem">
+        <PropertyRef Name="TaxID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblQuotationItem_tblUnit">
+    <End Role="tblUnit" Type="Self.tblUnit" Multiplicity="0..1" />
+    <End Role="tblQuotationItem" Type="Self.tblQuotationItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblUnit">
+        <PropertyRef Name="UnitID" />
+      </Principal>
+      <Dependent Role="tblQuotationItem">
+        <PropertyRef Name="UnitID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblUser_tblRole">
+    <End Role="tblRole" Type="Self.tblRole" Multiplicity="0..1" />
+    <End Role="tblUser" Type="Self.tblUser" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblRole">
+        <PropertyRef Name="RoleId" />
+      </Principal>
+      <Dependent Role="tblUser">
+        <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblSize_tblUnit">
+    <End Role="tblUnit" Type="Self.tblUnit" Multiplicity="0..1" />
+    <End Role="tblSize" Type="Self.tblSize" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblUnit">
+        <PropertyRef Name="UnitID" />
+      </Principal>
+      <Dependent Role="tblSize">
+        <PropertyRef Name="UnitID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblSize_tblUser">
+    <End Role="tblUser" Type="Self.tblUser" Multiplicity="0..1" />
+    <End Role="tblSize" Type="Self.tblSize" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tblSize">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblSize_tblUser1">
+    <End Role="tblUser" Type="Self.tblUser" Multiplicity="0..1" />
+    <End Role="tblSize" Type="Self.tblSize" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tblSize">
+        <PropertyRef Name="UpdatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblStock_tblSize">
+    <End Role="tblSize" Type="Self.tblSize" Multiplicity="0..1" />
+    <End Role="tblStock" Type="Self.tblStock" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblSize">
+        <PropertyRef Name="SizeID" />
+      </Principal>
+      <Dependent Role="tblStock">
+        <PropertyRef Name="SizeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblStock_tblTax">
+    <End Role="tblTax" Type="Self.tblTax" Multiplicity="0..1" />
+    <End Role="tblStock" Type="Self.tblStock" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblTax">
+        <PropertyRef Name="TaxID" />
+      </Principal>
+      <Dependent Role="tblStock">
+        <PropertyRef Name="TaxID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblStock_tblUnit">
+    <End Role="tblUnit" Type="Self.tblUnit" Multiplicity="0..1" />
+    <End Role="tblStock" Type="Self.tblStock" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblUnit">
+        <PropertyRef Name="UnitID" />
+      </Principal>
+      <Dependent Role="tblStock">
+        <PropertyRef Name="UnitID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblStock_tblUser">
+    <End Role="tblUser" Type="Self.tblUser" Multiplicity="0..1" />
+    <End Role="tblStock" Type="Self.tblStock" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tblStock">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblStock_tblUser1">
+    <End Role="tblUser" Type="Self.tblUser" Multiplicity="0..1" />
+    <End Role="tblStock" Type="Self.tblStock" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tblStock">
+        <PropertyRef Name="UpdatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblTax_tblUser">
+    <End Role="tblUser" Type="Self.tblUser" Multiplicity="0..1" />
+    <End Role="tblTax" Type="Self.tblTax" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tblTax">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblTax_tblUser1">
+    <End Role="tblUser" Type="Self.tblUser" Multiplicity="0..1" />
+    <End Role="tblTax" Type="Self.tblTax" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tblTax">
+        <PropertyRef Name="UpdatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblUnit_tblUser">
+    <End Role="tblUser" Type="Self.tblUser" Multiplicity="0..1" />
+    <End Role="tblUnit" Type="Self.tblUnit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tblUnit">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblUnit_tblUser1">
+    <End Role="tblUser" Type="Self.tblUser" Multiplicity="0..1" />
+    <End Role="tblUnit" Type="Self.tblUnit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tblUnit">
+        <PropertyRef Name="UpdatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Billing4Entities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="tblDeliveryModes" EntityType="Self.tblDeliveryMode" />
+    <EntitySet Name="tblDeliveryNotes" EntityType="Self.tblDeliveryNote" />
+    <EntitySet Name="tblDeliveryNoteItems" EntityType="Self.tblDeliveryNoteItem" />
+    <EntitySet Name="tblInventories" EntityType="Self.tblInventory" />
+    <EntitySet Name="tblInventoryItems" EntityType="Self.tblInventoryItem" />
+    <EntitySet Name="tblInvoices" EntityType="Self.tblInvoice" />
+    <EntitySet Name="tblInvoiceItems" EntityType="Self.tblInvoiceItem" />
+    <EntitySet Name="tblMeasurementUnits" EntityType="Self.tblMeasurementUnit" />
+    <EntitySet Name="tblPaymentModes" EntityType="Self.tblPaymentMode" />
+    <EntitySet Name="tblProducts" EntityType="Self.tblProduct" />
+    <EntitySet Name="tblProductCategories" EntityType="Self.tblProductCategory" />
+    <EntitySet Name="tblProductSubCategories" EntityType="Self.tblProductSubCategory" />
+    <EntitySet Name="tblQuotations" EntityType="Self.tblQuotation" />
+    <EntitySet Name="tblQuotationItems" EntityType="Self.tblQuotationItem" />
+    <EntitySet Name="tblRoles" EntityType="Self.tblRole" />
+    <EntitySet Name="tblSizes" EntityType="Self.tblSize" />
+    <EntitySet Name="tblStocks" EntityType="Self.tblStock" />
+    <EntitySet Name="tblTaxes" EntityType="Self.tblTax" />
+    <EntitySet Name="tblUnits" EntityType="Self.tblUnit" />
+    <EntitySet Name="tblUsers" EntityType="Self.tblUser" />
+    <AssociationSet Name="FK_tblDeliveryNote_tblDeliveryMode1" Association="Self.FK_tblDeliveryNote_tblDeliveryMode1">
+      <End Role="tblDeliveryMode" EntitySet="tblDeliveryModes" />
+      <End Role="tblDeliveryNote" EntitySet="tblDeliveryNotes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblDeliveryNote_tblInvoice" Association="Self.FK_tblDeliveryNote_tblInvoice">
+      <End Role="tblInvoice" EntitySet="tblInvoices" />
+      <End Role="tblDeliveryNote" EntitySet="tblDeliveryNotes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblDeliveryNote_tblUser" Association="Self.FK_tblDeliveryNote_tblUser">
+      <End Role="tblUser" EntitySet="tblUsers" />
+      <End Role="tblDeliveryNote" EntitySet="tblDeliveryNotes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblDeliveryNote_tblUser1" Association="Self.FK_tblDeliveryNote_tblUser1">
+      <End Role="tblUser" EntitySet="tblUsers" />
+      <End Role="tblDeliveryNote" EntitySet="tblDeliveryNotes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblDeliveryNoteItem_tblDeliveryNote" Association="Self.FK_tblDeliveryNoteItem_tblDeliveryNote">
+      <End Role="tblDeliveryNote" EntitySet="tblDeliveryNotes" />
+      <End Role="tblDeliveryNoteItem" EntitySet="tblDeliveryNoteItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblDeliveryNoteItem_tblProduct" Association="Self.FK_tblDeliveryNoteItem_tblProduct">
+      <End Role="tblProduct" EntitySet="tblProducts" />
+      <End Role="tblDeliveryNoteItem" EntitySet="tblDeliveryNoteItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblDeliveryNoteItem_tblSize" Association="Self.FK_tblDeliveryNoteItem_tblSize">
+      <End Role="tblSize" EntitySet="tblSizes" />
+      <End Role="tblDeliveryNoteItem" EntitySet="tblDeliveryNoteItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblDeliveryNoteItem_tblTax" Association="Self.FK_tblDeliveryNoteItem_tblTax">
+      <End Role="tblTax" EntitySet="tblTaxes" />
+      <End Role="tblDeliveryNoteItem" EntitySet="tblDeliveryNoteItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblDeliveryNoteItem_tblUnit" Association="Self.FK_tblDeliveryNoteItem_tblUnit">
+      <End Role="tblUnit" EntitySet="tblUnits" />
+      <End Role="tblDeliveryNoteItem" EntitySet="tblDeliveryNoteItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblInventory_tblPaymentMode1" Association="Self.FK_tblInventory_tblPaymentMode1">
+      <End Role="tblPaymentMode" EntitySet="tblPaymentModes" />
+      <End Role="tblInventory" EntitySet="tblInventories" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblInventory_tblUser" Association="Self.FK_tblInventory_tblUser">
+      <End Role="tblUser" EntitySet="tblUsers" />
+      <End Role="tblInventory" EntitySet="tblInventories" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblInventory_tblUser1" Association="Self.FK_tblInventory_tblUser1">
+      <End Role="tblUser" EntitySet="tblUsers" />
+      <End Role="tblInventory" EntitySet="tblInventories" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblInventoryItem_tblInventory" Association="Self.FK_tblInventoryItem_tblInventory">
+      <End Role="tblInventory" EntitySet="tblInventories" />
+      <End Role="tblInventoryItem" EntitySet="tblInventoryItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblInventoryItem_tblProduct" Association="Self.FK_tblInventoryItem_tblProduct">
+      <End Role="tblProduct" EntitySet="tblProducts" />
+      <End Role="tblInventoryItem" EntitySet="tblInventoryItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblInventoryItem_tblSize" Association="Self.FK_tblInventoryItem_tblSize">
+      <End Role="tblSize" EntitySet="tblSizes" />
+      <End Role="tblInventoryItem" EntitySet="tblInventoryItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblInventoryItem_tblTax" Association="Self.FK_tblInventoryItem_tblTax">
+      <End Role="tblTax" EntitySet="tblTaxes" />
+      <End Role="tblInventoryItem" EntitySet="tblInventoryItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblInventoryItem_tblUnit" Association="Self.FK_tblInventoryItem_tblUnit">
+      <End Role="tblUnit" EntitySet="tblUnits" />
+      <End Role="tblInventoryItem" EntitySet="tblInventoryItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblInvoice_tblPaymentMode1" Association="Self.FK_tblInvoice_tblPaymentMode1">
+      <End Role="tblPaymentMode" EntitySet="tblPaymentModes" />
+      <End Role="tblInvoice" EntitySet="tblInvoices" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblInvoice_tblUser" Association="Self.FK_tblInvoice_tblUser">
+      <End Role="tblUser" EntitySet="tblUsers" />
+      <End Role="tblInvoice" EntitySet="tblInvoices" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblInvoice_tblUser1" Association="Self.FK_tblInvoice_tblUser1">
+      <End Role="tblUser" EntitySet="tblUsers" />
+      <End Role="tblInvoice" EntitySet="tblInvoices" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblInvoiceItem_tblInvoice" Association="Self.FK_tblInvoiceItem_tblInvoice">
+      <End Role="tblInvoice" EntitySet="tblInvoices" />
+      <End Role="tblInvoiceItem" EntitySet="tblInvoiceItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblInvoiceItem_tblInvoiceItem" Association="Self.FK_tblInvoiceItem_tblInvoiceItem">
+      <End Role="tblInvoiceItem" EntitySet="tblInvoiceItems" />
+      <End Role="tblInvoiceItem1" EntitySet="tblInvoiceItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblInvoiceItem_tblProduct" Association="Self.FK_tblInvoiceItem_tblProduct">
+      <End Role="tblProduct" EntitySet="tblProducts" />
+      <End Role="tblInvoiceItem" EntitySet="tblInvoiceItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblInvoiceItem_tblSize" Association="Self.FK_tblInvoiceItem_tblSize">
+      <End Role="tblSize" EntitySet="tblSizes" />
+      <End Role="tblInvoiceItem" EntitySet="tblInvoiceItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblInvoiceItem_tblTax" Association="Self.FK_tblInvoiceItem_tblTax">
+      <End Role="tblTax" EntitySet="tblTaxes" />
+      <End Role="tblInvoiceItem" EntitySet="tblInvoiceItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblInvoiceItem_tblUnit" Association="Self.FK_tblInvoiceItem_tblUnit">
+      <End Role="tblUnit" EntitySet="tblUnits" />
+      <End Role="tblInvoiceItem" EntitySet="tblInvoiceItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblMeasurementUnit_tblMeasurementUnit" Association="Self.FK_tblMeasurementUnit_tblMeasurementUnit">
+      <End Role="tblUser" EntitySet="tblUsers" />
+      <End Role="tblMeasurementUnit" EntitySet="tblMeasurementUnits" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblMeasurementUnit_tblUser" Association="Self.FK_tblMeasurementUnit_tblUser">
+      <End Role="tblUser" EntitySet="tblUsers" />
+      <End Role="tblMeasurementUnit" EntitySet="tblMeasurementUnits" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblQuotation_tblPaymentMode1" Association="Self.FK_tblQuotation_tblPaymentMode1">
+      <End Role="tblPaymentMode" EntitySet="tblPaymentModes" />
+      <End Role="tblQuotation" EntitySet="tblQuotations" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblProduct_tblProductCategory" Association="Self.FK_tblProduct_tblProductCategory">
+      <End Role="tblProductCategory" EntitySet="tblProductCategories" />
+      <End Role="tblProduct" EntitySet="tblProducts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblProduct_tblProductSubCategory" Association="Self.FK_tblProduct_tblProductSubCategory">
+      <End Role="tblProductSubCategory" EntitySet="tblProductSubCategories" />
+      <End Role="tblProduct" EntitySet="tblProducts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblProduct_tblSize" Association="Self.FK_tblProduct_tblSize">
+      <End Role="tblSize" EntitySet="tblSizes" />
+      <End Role="tblProduct" EntitySet="tblProducts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblProduct_tblTax" Association="Self.FK_tblProduct_tblTax">
+      <End Role="tblTax" EntitySet="tblTaxes" />
+      <End Role="tblProduct" EntitySet="tblProducts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblProduct_tblUnit" Association="Self.FK_tblProduct_tblUnit">
+      <End Role="tblUnit" EntitySet="tblUnits" />
+      <End Role="tblProduct" EntitySet="tblProducts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblProduct_tblUser" Association="Self.FK_tblProduct_tblUser">
+      <End Role="tblUser" EntitySet="tblUsers" />
+      <End Role="tblProduct" EntitySet="tblProducts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblProduct_tblUser1" Association="Self.FK_tblProduct_tblUser1">
+      <End Role="tblUser" EntitySet="tblUsers" />
+      <End Role="tblProduct" EntitySet="tblProducts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblQuotationItem_tblProduct" Association="Self.FK_tblQuotationItem_tblProduct">
+      <End Role="tblProduct" EntitySet="tblProducts" />
+      <End Role="tblQuotationItem" EntitySet="tblQuotationItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblProductSubCategory_tblProductCategory" Association="Self.FK_tblProductSubCategory_tblProductCategory">
+      <End Role="tblProductCategory" EntitySet="tblProductCategories" />
+      <End Role="tblProductSubCategory" EntitySet="tblProductSubCategories" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblQuotation_tblUser" Association="Self.FK_tblQuotation_tblUser">
+      <End Role="tblUser" EntitySet="tblUsers" />
+      <End Role="tblQuotation" EntitySet="tblQuotations" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblQuotation_tblUser1" Association="Self.FK_tblQuotation_tblUser1">
+      <End Role="tblUser" EntitySet="tblUsers" />
+      <End Role="tblQuotation" EntitySet="tblQuotations" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblQuotationItem_tblQuotation" Association="Self.FK_tblQuotationItem_tblQuotation">
+      <End Role="tblQuotation" EntitySet="tblQuotations" />
+      <End Role="tblQuotationItem" EntitySet="tblQuotationItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblQuotationItem_tblSize" Association="Self.FK_tblQuotationItem_tblSize">
+      <End Role="tblSize" EntitySet="tblSizes" />
+      <End Role="tblQuotationItem" EntitySet="tblQuotationItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblQuotationItem_tblTax" Association="Self.FK_tblQuotationItem_tblTax">
+      <End Role="tblTax" EntitySet="tblTaxes" />
+      <End Role="tblQuotationItem" EntitySet="tblQuotationItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblQuotationItem_tblUnit" Association="Self.FK_tblQuotationItem_tblUnit">
+      <End Role="tblUnit" EntitySet="tblUnits" />
+      <End Role="tblQuotationItem" EntitySet="tblQuotationItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblUser_tblRole" Association="Self.FK_tblUser_tblRole">
+      <End Role="tblRole" EntitySet="tblRoles" />
+      <End Role="tblUser" EntitySet="tblUsers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblSize_tblUnit" Association="Self.FK_tblSize_tblUnit">
+      <End Role="tblUnit" EntitySet="tblUnits" />
+      <End Role="tblSize" EntitySet="tblSizes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblSize_tblUser" Association="Self.FK_tblSize_tblUser">
+      <End Role="tblUser" EntitySet="tblUsers" />
+      <End Role="tblSize" EntitySet="tblSizes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblSize_tblUser1" Association="Self.FK_tblSize_tblUser1">
+      <End Role="tblUser" EntitySet="tblUsers" />
+      <End Role="tblSize" EntitySet="tblSizes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblStock_tblSize" Association="Self.FK_tblStock_tblSize">
+      <End Role="tblSize" EntitySet="tblSizes" />
+      <End Role="tblStock" EntitySet="tblStocks" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblStock_tblTax" Association="Self.FK_tblStock_tblTax">
+      <End Role="tblTax" EntitySet="tblTaxes" />
+      <End Role="tblStock" EntitySet="tblStocks" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblStock_tblUnit" Association="Self.FK_tblStock_tblUnit">
+      <End Role="tblUnit" EntitySet="tblUnits" />
+      <End Role="tblStock" EntitySet="tblStocks" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblStock_tblUser" Association="Self.FK_tblStock_tblUser">
+      <End Role="tblUser" EntitySet="tblUsers" />
+      <End Role="tblStock" EntitySet="tblStocks" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblStock_tblUser1" Association="Self.FK_tblStock_tblUser1">
+      <End Role="tblUser" EntitySet="tblUsers" />
+      <End Role="tblStock" EntitySet="tblStocks" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblTax_tblUser" Association="Self.FK_tblTax_tblUser">
+      <End Role="tblUser" EntitySet="tblUsers" />
+      <End Role="tblTax" EntitySet="tblTaxes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblTax_tblUser1" Association="Self.FK_tblTax_tblUser1">
+      <End Role="tblUser" EntitySet="tblUsers" />
+      <End Role="tblTax" EntitySet="tblTaxes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblUnit_tblUser" Association="Self.FK_tblUnit_tblUser">
+      <End Role="tblUser" EntitySet="tblUsers" />
+      <End Role="tblUnit" EntitySet="tblUnits" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblUnit_tblUser1" Association="Self.FK_tblUnit_tblUser1">
+      <End Role="tblUser" EntitySet="tblUsers" />
+      <End Role="tblUnit" EntitySet="tblUnits" />
+    </AssociationSet>
+    <FunctionImport Name="Delete_DeliveryNote">
+      <Parameter Name="DeliveryNoteID" Mode="In" Type="Int32" />
+      <Parameter Name="UpdatedBy" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="Delete_Inventory">
+      <Parameter Name="InventoryID" Mode="In" Type="Int32" />
+      <Parameter Name="UpdatedBy" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="Delete_Invoice">
+      <Parameter Name="Invoice" Mode="In" Type="Int32" />
+      <Parameter Name="UpdatedBy" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="Delete_Product">
+      <Parameter Name="ProductID" Mode="In" Type="Int32" />
+      <Parameter Name="UpdatedOn" Mode="In" Type="DateTime" />
+      <Parameter Name="UpdatedBy" Mode="In" Type="Int32" />
+      <Parameter Name="Check" Mode="InOut" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="Delete_ProductCategory">
+      <Parameter Name="ProductCategoryID" Mode="In" Type="Int32" />
+      <Parameter Name="UpdatedOn" Mode="In" Type="DateTime" />
+      <Parameter Name="UpdatedBy" Mode="In" Type="Int32" />
+      <Parameter Name="Check" Mode="InOut" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="Delete_ProductSubCategory">
+      <Parameter Name="ProductSubCategoryID" Mode="In" Type="Int32" />
+      <Parameter Name="UpdatedOn" Mode="In" Type="DateTime" />
+      <Parameter Name="UpdatedBy" Mode="In" Type="Int32" />
+      <Parameter Name="Check" Mode="InOut" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="Delete_Quotation">
+      <Parameter Name="QuotationID" Mode="In" Type="Int32" />
+      <Parameter Name="UpdatedBy" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="Delete_Size">
+      <Parameter Name="SizeID" Mode="In" Type="Int32" />
+      <Parameter Name="UpdatedBy" Mode="In" Type="Int32" />
+      <Parameter Name="Check" Mode="InOut" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="Delete_Tax">
+      <Parameter Name="TaxID" Mode="In" Type="Int32" />
+      <Parameter Name="UpdatedBy" Mode="In" Type="Int32" />
+      <Parameter Name="Check" Mode="InOut" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="Delete_tblStock">
+      <Parameter Name="StockID" Mode="In" Type="Int32" />
+      <Parameter Name="UpdatedOn" Mode="In" Type="DateTime" />
+      <Parameter Name="UpdatedBy" Mode="In" Type="Int32" />
+      <Parameter Name="Check" Mode="InOut" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="Delete_Unit">
+      <Parameter Name="UnitID" Mode="In" Type="Int32" />
+      <Parameter Name="UpdatedBy" Mode="In" Type="Int32" />
+      <Parameter Name="Check" Mode="InOut" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="Get_Product" ReturnType="Collection(Billing4Model.Get_Product_Result)" />
+    <FunctionImport Name="Get_UserDetails">
+      <Parameter Name="UserName" Mode="In" Type="String" />
+      <Parameter Name="Password" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="GetAll_DeliveryMode" ReturnType="Collection(Billing4Model.GetAll_DeliveryMode_Result)" />
+    <FunctionImport Name="GetAll_DeliveryNote" ReturnType="Collection(Billing4Model.GetAll_DeliveryNote_Result)">
+      <Parameter Name="DeliveryNoteID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="GetAll_DeliveryNoteItem">
+      <Parameter Name="DeliveryNoteID" Mode="In" Type="Int32" />
+      <Parameter Name="DeliveryNoteItemID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="GetAll_DeliveryNoteItem_Report">
+      <Parameter Name="DeliveryNoteID" Mode="In" Type="Int32" />
+      <Parameter Name="DeliveryNoteItemID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="GetAll_Inventory" ReturnType="Collection(Billing4Model.GetAll_Inventory_Result)">
+      <Parameter Name="InventoryID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="GetAll_InventoryItem">
+      <Parameter Name="InventoryID" Mode="In" Type="Int32" />
+      <Parameter Name="InventoryItemID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="GetAll_InventoryItem_Report">
+      <Parameter Name="InventoryID" Mode="In" Type="Int32" />
+      <Parameter Name="InventoryItemID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="GetAll_Invoice" ReturnType="Collection(Billing4Model.GetAll_Invoice_Result)">
+      <Parameter Name="InvoiceID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="GetAll_InvoiceItem">
+      <Parameter Name="InvoiceID" Mode="In" Type="Int32" />
+      <Parameter Name="InvoiceItemID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="GetAll_InvoiceItem_Report">
+      <Parameter Name="InvoiceID" Mode="In" Type="Int32" />
+      <Parameter Name="InvoiceItemID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="GetAll_PaymentMode" ReturnType="Collection(Billing4Model.GetAll_PaymentMode_Result)" />
+    <FunctionImport Name="GetAll_PaymentModeItem">
+      <Parameter Name="PaymentModeID" Mode="In" Type="Int32" />
+      <Parameter Name="PaymentModeItemID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="GetAll_Product" ReturnType="Collection(Billing4Model.GetAll_Product_Result)">
+      <Parameter Name="ProductID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="GetAll_ProductCategory" ReturnType="Collection(Billing4Model.GetAll_ProductCategory_Result)" />
+    <FunctionImport Name="GetAll_ProductSubCategory" ReturnType="Collection(Billing4Model.GetAll_ProductSubCategory_Result)">
+      <Parameter Name="ProductSubCategoryID" Mode="In" Type="Int32" />
+      <Parameter Name="ProductCategoryID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="GetAll_ProductSubCategoryWithProductCategory" ReturnType="Collection(Billing4Model.GetAll_ProductSubCategoryWithProductCategory_Result)">
+      <Parameter Name="ProductSubCategoryID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="GetAll_Quotation" ReturnType="Collection(Billing4Model.GetAll_Quotation_Result)">
+      <Parameter Name="QuotationID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="GetAll_Quotation_Report">
+      <Parameter Name="QuotationID" Mode="In" Type="Int32" />
+      <Parameter Name="QuotationItemID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="GetAll_QuotationItem">
+      <Parameter Name="QuotationID" Mode="In" Type="Int32" />
+      <Parameter Name="QuotationItemID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="GetAll_Size" ReturnType="Collection(Billing4Model.GetAll_Size_Result)">
+      <Parameter Name="SizeID" Mode="In" Type="Int32" />
+      <Parameter Name="UnitID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="GetAll_Stock" ReturnType="Collection(Billing4Model.GetAll_Stock_Result)">
+      <Parameter Name="StockID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="GetAll_Tax" ReturnType="Collection(Billing4Model.GetAll_Tax_Result)">
+      <Parameter Name="TaxID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="GetAll_Unit" ReturnType="Collection(Billing4Model.GetAll_Unit_Result)">
+      <Parameter Name="UnitID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="GetMax_Inventory" ReturnType="Collection(Int32)" />
+    <FunctionImport Name="GetMax_Invoice" ReturnType="Collection(Int32)" />
+    <FunctionImport Name="InsertUpdate_Product">
+      <Parameter Name="ProductID" Mode="In" Type="Int32" />
+      <Parameter Name="ProductCategoryID" Mode="In" Type="Int32" />
+      <Parameter Name="ProductSubCategoryID" Mode="In" Type="Int32" />
+      <Parameter Name="ProductName" Mode="In" Type="String" />
+      <Parameter Name="ProductDescription" Mode="In" Type="String" />
+      <Parameter Name="Make" Mode="In" Type="String" />
+      <Parameter Name="Unit" Mode="In" Type="String" />
+      <Parameter Name="TaxID" Mode="In" Type="Int32" />
+      <Parameter Name="SizeID" Mode="In" Type="Int32" />
+      <Parameter Name="RatePerUnit" Mode="In" Type="Decimal" />
+      <Parameter Name="Discount" Mode="In" Type="String" />
+      <Parameter Name="Remark" Mode="In" Type="String" />
+      <Parameter Name="UpdatedOn" Mode="In" Type="DateTime" />
+      <Parameter Name="CreatedBy" Mode="In" Type="Int32" />
+      <Parameter Name="UpdatedBy" Mode="In" Type="Int32" />
+      <Parameter Name="UnitID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="InsertUpdate_ProductCategory">
+      <Parameter Name="ProductCategoryID" Mode="In" Type="Int32" />
+      <Parameter Name="CategoryName" Mode="In" Type="String" />
+      <Parameter Name="Description" Mode="In" Type="String" />
+      <Parameter Name="HSN_SAC" Mode="In" Type="Int32" />
+      <Parameter Name="UpdatedOn" Mode="In" Type="DateTime" />
+      <Parameter Name="CreatedBy" Mode="In" Type="Int32" />
+      <Parameter Name="UpdatedBy" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="InsertUpdate_ProductSubCategory">
+      <Parameter Name="ProductSubCategoryID" Mode="In" Type="Int32" />
+      <Parameter Name="ProductCategoryID" Mode="In" Type="Int32" />
+      <Parameter Name="SubCategoryName" Mode="In" Type="String" />
+      <Parameter Name="Description" Mode="In" Type="String" />
+      <Parameter Name="UpdatedOn" Mode="In" Type="DateTime" />
+      <Parameter Name="CreatedBy" Mode="In" Type="Int32" />
+      <Parameter Name="UpdatedBy" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="InsertUpdate_Size">
+      <Parameter Name="SizeID" Mode="In" Type="Int32" />
+      <Parameter Name="SizeName" Mode="In" Type="String" />
+      <Parameter Name="SizeDescription" Mode="In" Type="String" />
+      <Parameter Name="CreatedBy" Mode="In" Type="Int32" />
+      <Parameter Name="UnitID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="InsertUpdate_Tax">
+      <Parameter Name="TaxID" Mode="In" Type="Int32" />
+      <Parameter Name="TaxName" Mode="In" Type="String" />
+      <Parameter Name="TaxPercentage" Mode="In" Type="Decimal" />
+      <Parameter Name="Description" Mode="In" Type="String" />
+      <Parameter Name="EffectiveFrom" Mode="In" Type="DateTime" />
+      <Parameter Name="CreatedBy" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="InsertUpdate_Unit">
+      <Parameter Name="UnitID" Mode="In" Type="Int32" />
+      <Parameter Name="Name" Mode="In" Type="String" />
+      <Parameter Name="Description" Mode="In" Type="String" />
+      <Parameter Name="CreatedBy" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_GetMonthlyInventoryReprot" ReturnType="Collection(Billing4Model.sp_GetMonthlyInventoryReprot_Result)">
+      <Parameter Name="FromDate" Mode="In" Type="DateTime" />
+      <Parameter Name="Todate" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="sp_GetMonthlyInvoiceReprot" ReturnType="Collection(Billing4Model.sp_GetMonthlyInvoiceReprot_Result)">
+      <Parameter Name="FromDate" Mode="In" Type="DateTime" />
+      <Parameter Name="Todate" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="sp_GetMonthlytblDeliveryNoteReport" ReturnType="Collection(Billing4Model.sp_GetMonthlytblDeliveryNoteReport_Result)">
+      <Parameter Name="FromDate" Mode="In" Type="DateTime" />
+      <Parameter Name="Todate" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="sp_GetMonthlytblQuotationReport" ReturnType="Collection(Billing4Model.sp_GetMonthlytblQuotationReport_Result)">
+      <Parameter Name="FromDate" Mode="In" Type="DateTime" />
+      <Parameter Name="Todate" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="spDeliveryNote_DeliveryNoteEntrySave">
+      <Parameter Name="DeliveryNoteXML" Mode="In" Type="String" />
+      <Parameter Name="DeliveryNoteItemXML" Mode="In" Type="String" />
+      <Parameter Name="modifiedBy" Mode="In" Type="Int32" />
+      <Parameter Name="DeliveryNoteID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="spInventory_InventoryEntrySave">
+      <Parameter Name="InventoryXML" Mode="In" Type="String" />
+      <Parameter Name="InventoryItemXML" Mode="In" Type="String" />
+      <Parameter Name="modifiedBy" Mode="In" Type="Int32" />
+      <Parameter Name="InventoryID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="spInventory_InventoryEntrySave_23Oct2017">
+      <Parameter Name="InventoryXML" Mode="In" Type="String" />
+      <Parameter Name="InventoryItemXML" Mode="In" Type="String" />
+      <Parameter Name="modifiedBy" Mode="In" Type="Int32" />
+      <Parameter Name="InventoryID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="spInventory_InventoryEntrySave_29Oct2017">
+      <Parameter Name="InventoryXML" Mode="In" Type="String" />
+      <Parameter Name="InventoryItemXML" Mode="In" Type="String" />
+      <Parameter Name="modifiedBy" Mode="In" Type="Int32" />
+      <Parameter Name="InventoryID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="spInvoice_InvoiceEntrySave">
+      <Parameter Name="invoiceXML" Mode="In" Type="String" />
+      <Parameter Name="invoiceItemXML" Mode="In" Type="String" />
+      <Parameter Name="modifiedBy" Mode="In" Type="Int32" />
+      <Parameter Name="invoiceID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="spInvoice_InvoiceEntrySave_23Oc2017">
+      <Parameter Name="invoiceXML" Mode="In" Type="String" />
+      <Parameter Name="invoiceItemXML" Mode="In" Type="String" />
+      <Parameter Name="modifiedBy" Mode="In" Type="Int32" />
+      <Parameter Name="invoiceID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="spInvoice_InvoiceEntrySave_29Oct2017">
+      <Parameter Name="invoiceXML" Mode="In" Type="String" />
+      <Parameter Name="invoiceItemXML" Mode="In" Type="String" />
+      <Parameter Name="modifiedBy" Mode="In" Type="Int32" />
+      <Parameter Name="invoiceID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="spQuotation_QuotationEntrySave">
+      <Parameter Name="QuotationXML" Mode="In" Type="String" />
+      <Parameter Name="QuotationItemXML" Mode="In" Type="String" />
+      <Parameter Name="modifiedBy" Mode="In" Type="Int32" />
+      <Parameter Name="QuotationID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="spStock_StockEntrySave">
+      <Parameter Name="StockID" Mode="In" Type="Int32" />
+      <Parameter Name="ProductID" Mode="In" Type="Int32" />
+      <Parameter Name="Make" Mode="In" Type="String" />
+      <Parameter Name="Quantity" Mode="In" Type="Decimal" />
+      <Parameter Name="UnitID" Mode="In" Type="Int32" />
+      <Parameter Name="SizeID" Mode="In" Type="Int32" />
+      <Parameter Name="RatePerUnit" Mode="In" Type="Decimal" />
+      <Parameter Name="TaxID" Mode="In" Type="Int32" />
+      <Parameter Name="Tax" Mode="In" Type="Decimal" />
+      <Parameter Name="TaxAmount" Mode="In" Type="Decimal" />
+      <Parameter Name="Discount" Mode="In" Type="Decimal" />
+      <Parameter Name="DiscountAmount" Mode="In" Type="Decimal" />
+      <Parameter Name="TotalAmount" Mode="In" Type="Decimal" />
+      <Parameter Name="Remark" Mode="In" Type="String" />
+      <Parameter Name="CreatedBy" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="usp_ChangePassword">
+      <Parameter Name="UserName" Mode="In" Type="String" />
+      <Parameter Name="NewPassword" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="usp_MonthlyStockReport">
+      <Parameter Name="FromDate" Mode="In" Type="DateTime" />
+      <Parameter Name="Todate" Mode="In" Type="DateTime" />
+      <Parameter Name="ProductID" Mode="In" Type="Int32" />
+      <Parameter Name="Make" Mode="In" Type="String" />
+    </FunctionImport>
+  </EntityContainer>
+  <ComplexType Name="Get_Product_Result">
+    <Property Type="Int32" Name="ProductID" Nullable="false" />
+    <Property Type="String" Name="ProductName" Nullable="true" MaxLength="100" />
+  </ComplexType>
+  <ComplexType Name="GetAll_DeliveryMode_Result">
+    <Property Type="Int32" Name="DeliveryModeID" Nullable="false" />
+    <Property Type="String" Name="DeliveryMode" Nullable="true" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="GetAll_DeliveryNote_Result">
+    <Property Type="Int32" Name="DeliveryNoteID" Nullable="false" />
+    <Property Type="Int32" Name="InvoiceID" Nullable="true" />
+    <Property Type="String" Name="CustomerName" Nullable="true" MaxLength="200" />
+    <Property Type="Int32" Name="DeliveryModeID" Nullable="true" />
+    <Property Type="String" Name="DeliveryMode" Nullable="true" MaxLength="50" />
+    <Property Type="DateTime" Name="DeliveryDate" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="EstimatedDeliveryDate" Nullable="true" Precision="23" />
+    <Property Type="String" Name="Remarks" Nullable="true" MaxLength="500" />
+    <Property Type="Boolean" Name="IsActive" Nullable="false" />
+    <Property Type="DateTime" Name="CreatedOn" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="UpdatedOn" Nullable="true" Precision="23" />
+    <Property Type="Int32" Name="CreatedBy" Nullable="true" />
+    <Property Type="Int32" Name="UpdatedBy" Nullable="true" />
+    <Property Type="Int32" Name="DeliveryModeID1" Nullable="true" />
+    <Property Type="String" Name="DeliveryMode1" Nullable="true" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="GetAll_Inventory_Result">
+    <Property Type="Int32" Name="InventoryID" Nullable="false" />
+    <Property Type="String" Name="InvoiceNo" Nullable="true" />
+    <Property Type="String" Name="BillingAddress" Nullable="true" />
+    <Property Type="String" Name="ShippingAddress" Nullable="true" />
+    <Property Type="String" Name="GSTIN" Nullable="true" />
+    <Property Type="String" Name="CompanyName" Nullable="true" MaxLength="200" />
+    <Property Type="String" Name="ContactPersonName" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="ContactNumber" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="Email" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="Website" Nullable="true" MaxLength="100" />
+    <Property Type="Int32" Name="PaymentModeID" Nullable="false" />
+    <Property Type="String" Name="PaymentMode" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="IsPaid" Nullable="false" MaxLength="3" />
+    <Property Type="String" Name="IsOnCredit" Nullable="false" MaxLength="3" />
+    <Property Type="Int32" Name="IsOnCredit1" Nullable="true" />
+    <Property Type="DateTime" Name="InventoryDate" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="ItemsReceivedOn" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="PaymentDate" Nullable="true" Precision="23" />
+    <Property Type="Decimal" Name="TotalTaxAmount" Nullable="true" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="TotalAmount" Nullable="true" Precision="18" Scale="0" />
+    <Property Type="String" Name="Remarks" Nullable="true" MaxLength="500" />
+    <Property Type="Boolean" Name="IsActive" Nullable="false" />
+    <Property Type="DateTime" Name="CreatedOn" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="UpdatedOn" Nullable="true" Precision="23" />
+    <Property Type="Int32" Name="CreatedBy" Nullable="true" />
+    <Property Type="Int32" Name="UpdatedBy" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="GetAll_Invoice_Result">
+    <Property Type="Int32" Name="InvoiceID" Nullable="false" />
+    <Property Type="String" Name="CustomerName" Nullable="true" MaxLength="200" />
+    <Property Type="String" Name="ContactNumber" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="Email" Nullable="true" MaxLength="200" />
+    <Property Type="String" Name="Website" Nullable="true" MaxLength="200" />
+    <Property Type="Int32" Name="PaymentModeID" Nullable="true" />
+    <Property Type="String" Name="IsPaid" Nullable="false" MaxLength="3" />
+    <Property Type="String" Name="IsOnCredit" Nullable="false" MaxLength="3" />
+    <Property Type="DateTime" Name="InvoiceDate" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="PaymentExpectedBy" Nullable="true" Precision="23" />
+    <Property Type="String" Name="Remarks" Nullable="true" MaxLength="500" />
+    <Property Type="Boolean" Name="IsActive" Nullable="false" />
+    <Property Type="DateTime" Name="CreatedOn" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="UpdatedOn" Nullable="true" Precision="23" />
+    <Property Type="Int32" Name="CreatedBy" Nullable="true" />
+    <Property Type="Int32" Name="UpdatedBy" Nullable="true" />
+    <Property Type="String" Name="InvoiceNo" Nullable="true" />
+    <Property Type="String" Name="BillingAddress" Nullable="true" />
+    <Property Type="String" Name="ShippingAddress" Nullable="true" />
+    <Property Type="Int32" Name="InvoiceType" Nullable="true" />
+    <Property Type="String" Name="GSTIN" Nullable="true" MaxLength="200" />
+  </ComplexType>
+  <ComplexType Name="GetAll_PaymentMode_Result">
+    <Property Type="Int32" Name="PaymentModeID" Nullable="false" />
+    <Property Type="String" Name="PaymentMode" Nullable="true" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="GetAll_Product_Result">
+    <Property Type="Int32" Name="ProductID" Nullable="false" />
+    <Property Type="Int32" Name="ProductCategoryID" Nullable="true" />
+    <Property Type="Int32" Name="ProductSubCategoryID" Nullable="true" />
+    <Property Type="Int32" Name="TaxID" Nullable="true" />
+    <Property Type="Int32" Name="SizeID" Nullable="true" />
+    <Property Type="String" Name="ProductName" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="ProductDescription" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="CategoryName" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="SubCategoryName" Nullable="true" MaxLength="200" />
+    <Property Type="String" Name="TaxName" Nullable="true" MaxLength="100" />
+    <Property Type="Decimal" Name="TaxPercentage" Nullable="true" Precision="18" Scale="2" />
+    <Property Type="String" Name="SizeName" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="Make" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="Unit" Nullable="true" MaxLength="100" />
+    <Property Type="Decimal" Name="RatePerUnit" Nullable="true" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="Discount" Nullable="true" Precision="18" Scale="2" />
+    <Property Type="String" Name="Remark" Nullable="true" MaxLength="200" />
+    <Property Type="Int32" Name="UnitID" Nullable="true" />
+    <Property Type="Int32" Name="HSN_SAC" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="GetAll_ProductCategory_Result">
+    <Property Type="Int32" Name="ProductCategoryID" Nullable="false" />
+    <Property Type="String" Name="CategoryName" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="Description" Nullable="true" MaxLength="500" />
+    <Property Type="Int32" Name="HSN_SAC" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="GetAll_ProductSubCategory_Result">
+    <Property Type="Int32" Name="ProductSubCategoryID" Nullable="false" />
+    <Property Type="String" Name="SubCategoryName" Nullable="true" MaxLength="200" />
+    <Property Type="String" Name="Description" Nullable="true" MaxLength="500" />
+  </ComplexType>
+  <ComplexType Name="GetAll_ProductSubCategoryWithProductCategory_Result">
+    <Property Type="Int32" Name="ProductSubCategoryID" Nullable="false" />
+    <Property Type="Int32" Name="ProductCategoryID" Nullable="false" />
+    <Property Type="String" Name="CategoryName" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="SubCategoryName" Nullable="true" MaxLength="200" />
+    <Property Type="String" Name="Description" Nullable="true" MaxLength="500" />
+    <Property Type="Int32" Name="HSN_SAC" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="GetAll_Quotation_Result">
+    <Property Type="Int32" Name="QuotationID" Nullable="false" />
+    <Property Type="String" Name="CustomerName" Nullable="true" MaxLength="200" />
+    <Property Type="DateTime" Name="QuotationDate" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="PurchaseExpectedBy" Nullable="true" Precision="23" />
+    <Property Type="String" Name="Remarks" Nullable="true" MaxLength="500" />
+    <Property Type="Boolean" Name="IsActive" Nullable="false" />
+    <Property Type="Int32" Name="PaymentModeID" Nullable="true" />
+    <Property Type="String" Name="PaymentMode" Nullable="true" MaxLength="50" />
+    <Property Type="DateTime" Name="CreatedOn" Nullable="false" Precision="23" />
+    <Property Type="DateTime" Name="UpdatedOn" Nullable="true" Precision="23" />
+    <Property Type="Int32" Name="CreatedBy" Nullable="true" />
+    <Property Type="Int32" Name="UpdatedBy" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="GetAll_Size_Result">
+    <Property Type="Int32" Name="SizeID" Nullable="false" />
+    <Property Type="String" Name="SizeName" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="SizeDescription" Nullable="true" MaxLength="200" />
+    <Property Type="Int32" Name="UnitID" Nullable="true" />
+    <Property Type="String" Name="UnitName" Nullable="true" MaxLength="100" />
+  </ComplexType>
+  <ComplexType Name="GetAll_Stock_Result">
+    <Property Type="Int32" Name="StockID" Nullable="false" />
+    <Property Type="Int32" Name="ProductID" Nullable="true" />
+    <Property Type="String" Name="Make" Nullable="true" MaxLength="100" />
+    <Property Type="Decimal" Name="Quantity" Nullable="true" Precision="18" Scale="2" />
+    <Property Type="Int32" Name="UnitID" Nullable="true" />
+    <Property Type="Int32" Name="SizeID" Nullable="true" />
+    <Property Type="Decimal" Name="RatePerUnit" Nullable="true" Precision="18" Scale="2" />
+    <Property Type="Int32" Name="TaxID" Nullable="true" />
+    <Property Type="Decimal" Name="TaxAmount" Nullable="true" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="DiscountAmount" Nullable="true" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="TotalAmount" Nullable="true" Precision="18" Scale="2" />
+    <Property Type="String" Name="Remark" Nullable="true" MaxLength="100" />
+    <Property Type="Boolean" Name="IsActive" Nullable="true" />
+    <Property Type="DateTime" Name="CreatedOn" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="UpdatedOn" Nullable="true" Precision="23" />
+    <Property Type="Int32" Name="CreatedBy" Nullable="true" />
+    <Property Type="Int32" Name="UpdatedBy" Nullable="true" />
+    <Property Type="String" Name="Size" Nullable="true" MaxLength="100" />
+    <Property Type="Decimal" Name="TaxPercentage" Nullable="true" Precision="18" Scale="2" />
+    <Property Type="String" Name="TaxName" Nullable="true" MaxLength="100" />
+    <Property Type="Decimal" Name="Discount" Nullable="true" Precision="18" Scale="2" />
+    <Property Type="String" Name="ProductDesc" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="ProductName" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="Unit" Nullable="true" MaxLength="100" />
+  </ComplexType>
+  <ComplexType Name="GetAll_Tax_Result">
+    <Property Type="Int32" Name="TaxID" Nullable="false" />
+    <Property Type="String" Name="TaxName" Nullable="true" MaxLength="100" />
+    <Property Type="Decimal" Name="TaxPercentage" Nullable="true" Precision="18" Scale="2" />
+    <Property Type="DateTime" Name="EffectiveFrom" Nullable="true" Precision="23" />
+    <Property Type="String" Name="Description" Nullable="true" MaxLength="500" />
+    <Property Type="Boolean" Name="IsActive" Nullable="false" />
+    <Property Type="DateTime" Name="CreatedOn" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="UpdatedOn" Nullable="true" Precision="23" />
+    <Property Type="Int32" Name="CreatedBy" Nullable="true" />
+    <Property Type="Int32" Name="UpdatedBy" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="GetAll_Unit_Result">
+    <Property Type="Int32" Name="UnitID" Nullable="false" />
+    <Property Type="String" Name="Name" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="Description" Nullable="true" MaxLength="200" />
+  </ComplexType>
+  <ComplexType Name="sp_GetMonthlyInventoryReprot_Result">
+    <Property Type="String" Name="CompanyName" Nullable="true" MaxLength="200" />
+    <Property Type="DateTime" Name="InventoryDate" Nullable="true" Precision="23" />
+    <Property Type="String" Name="ContactNumber" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="Email" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="Website" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="InvoiceNo" Nullable="true" />
+    <Property Type="String" Name="IsPaid" Nullable="false" MaxLength="3" />
+    <Property Type="String" Name="IsOnCredit" Nullable="false" MaxLength="3" />
+    <Property Type="Decimal" Name="TaxAmount" Nullable="true" Precision="38" Scale="2" />
+    <Property Type="Decimal" Name="DiscountAmount" Nullable="true" Precision="38" Scale="2" />
+    <Property Type="Decimal" Name="TotalAmount" Nullable="true" Precision="38" Scale="2" />
+  </ComplexType>
+  <ComplexType Name="sp_GetMonthlyInvoiceReprot_Result">
+    <Property Type="Int32" Name="InvoiceID" Nullable="false" />
+    <Property Type="String" Name="CustomerName" Nullable="true" MaxLength="200" />
+    <Property Type="String" Name="ContactNumber" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="Email" Nullable="true" MaxLength="200" />
+    <Property Type="String" Name="Website" Nullable="true" MaxLength="200" />
+    <Property Type="String" Name="PaymentMode" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="IsPaid" Nullable="false" MaxLength="3" />
+    <Property Type="String" Name="IsOnCredit" Nullable="false" MaxLength="3" />
+    <Property Type="DateTime" Name="InvoiceDate" Nullable="true" Precision="23" />
+    <Property Type="String" Name="InvoiceNo" Nullable="true" />
+    <Property Type="DateTime" Name="PaymentExpectedBy" Nullable="true" Precision="23" />
+    <Property Type="String" Name="Remarks" Nullable="true" MaxLength="500" />
+    <Property Type="Decimal" Name="TaxAmount" Nullable="true" Precision="38" Scale="2" />
+    <Property Type="Decimal" Name="DiscountAmount" Nullable="true" Precision="38" Scale="2" />
+    <Property Type="Decimal" Name="TotalAmount" Nullable="true" Precision="38" Scale="2" />
+  </ComplexType>
+  <ComplexType Name="sp_GetMonthlytblDeliveryNoteReport_Result">
+    <Property Type="Int32" Name="InvoiceID" Nullable="true" />
+    <Property Type="String" Name="InvoiceNo" Nullable="true" />
+    <Property Type="String" Name="CustomerName" Nullable="true" MaxLength="200" />
+    <Property Type="String" Name="DeliveryMode" Nullable="true" MaxLength="50" />
+    <Property Type="DateTime" Name="DeliveryDate" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="EstimatedDeliveryDate" Nullable="true" Precision="23" />
+    <Property Type="Decimal" Name="TaxAmount" Nullable="true" Precision="38" Scale="2" />
+    <Property Type="Decimal" Name="DiscountAmount" Nullable="true" Precision="38" Scale="2" />
+    <Property Type="Decimal" Name="TotalAmount" Nullable="true" Precision="38" Scale="2" />
+  </ComplexType>
+  <ComplexType Name="sp_GetMonthlytblQuotationReport_Result">
+    <Property Type="String" Name="CustomerName" Nullable="true" MaxLength="200" />
+    <Property Type="DateTime" Name="QuotationDate" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="PurchaseExpectedBy" Nullable="true" Precision="23" />
+    <Property Type="String" Name="PaymentMode" Nullable="true" MaxLength="50" />
+    <Property Type="Decimal" Name="TaxAmount" Nullable="true" Precision="38" Scale="2" />
+    <Property Type="Decimal" Name="DiscountAmount" Nullable="true" Precision="38" Scale="2" />
+    <Property Type="Decimal" Name="TotalAmount" Nullable="true" Precision="38" Scale="2" />
+  </ComplexType>
+</Schema>

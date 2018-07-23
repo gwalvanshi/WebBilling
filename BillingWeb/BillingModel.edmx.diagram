@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="738c7fd3162b42a281b48605c9d477f4" Name="Diagram1" ZoomLevel="54">
+        <EntityTypeShape EntityType="Billing4Model.tblDeliveryMode" Width="1.5" PointX="3" PointY="33.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Billing4Model.tblDeliveryNote" Width="1.5" PointX="5.25" PointY="27.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Billing4Model.tblDeliveryNoteItem" Width="1.5" PointX="15.75" PointY="49.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Billing4Model.tblInventory" Width="1.5" PointX="8.25" PointY="26.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Billing4Model.tblInventoryItem" Width="1.5" PointX="12.75" PointY="50.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Billing4Model.tblInvoice" Width="1.5" PointX="5.25" PointY="20.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Billing4Model.tblInvoiceItem" Width="1.5" PointX="12.75" PointY="43.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Billing4Model.tblMeasurementUnit" Width="1.5" PointX="5.25" PointY="41.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Billing4Model.tblPaymentMode" Width="1.5" PointX="3" PointY="22.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Billing4Model.tblProduct" Width="1.5" PointX="7.5" PointY="46.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Billing4Model.tblProductCategory" Width="1.5" PointX="5.25" PointY="46" IsExpanded="true" />
+        <EntityTypeShape EntityType="Billing4Model.tblProductSubCategory" Width="1.5" PointX="5.25" PointY="49.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Billing4Model.tblQuotation" Width="1.5" PointX="5.25" PointY="32.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Billing4Model.tblQuotationItem" Width="1.5" PointX="15.75" PointY="55.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Billing4Model.tblRole" Width="1.5" PointX="0.75" PointY="28.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Billing4Model.tblSize" Width="1.5" PointX="10.5" PointY="47.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Billing4Model.tblStock" Width="1.5" PointX="15.75" PointY="42.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Billing4Model.tblTax" Width="1.5" PointX="5.25" PointY="63" IsExpanded="true" />
+        <EntityTypeShape EntityType="Billing4Model.tblUnit" Width="1.5" PointX="5.25" PointY="68.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Billing4Model.tblUser" Width="1.5" PointX="3" PointY="26.375" IsExpanded="true" />
+        <AssociationConnector Association="Billing4Model.FK_tblDeliveryNote_tblDeliveryMode1" ManuallyRouted="false" />
+        <AssociationConnector Association="Billing4Model.FK_tblDeliveryNote_tblInvoice" ManuallyRouted="false" />
+        <AssociationConnector Association="Billing4Model.FK_tblDeliveryNote_tblUser" ManuallyRouted="false" />
+        <AssociationConnector Association="Billing4Model.FK_tblDeliveryNote_tblUser1" ManuallyRouted="false" />
+        <AssociationConnector Association="Billing4Model.FK_tblDeliveryNoteItem_tblDeliveryNote" ManuallyRouted="false" />
+        <AssociationConnector Association="Billing4Model.FK_tblDeliveryNoteItem_tblProduct" ManuallyRouted="false" />
+        <AssociationConnector Association="Billing4Model.FK_tblDeliveryNoteItem_tblSize" ManuallyRouted="false" />
+        <AssociationConnector Association="Billing4Model.FK_tblDeliveryNoteItem_tblTax" ManuallyRouted="false" />
+        <AssociationConnector Association="Billing4Model.FK_tblDeliveryNoteItem_tblUnit" ManuallyRouted="false" />
+        <AssociationConnector Association="Billing4Model.FK_tblInventory_tblPaymentMode1" ManuallyRouted="false" />
+        <AssociationConnector Association="Billing4Model.FK_tblInventory_tblUser" ManuallyRouted="false" />
+        <AssociationConnector Association="Billing4Model.FK_tblInventory_tblUser1" ManuallyRouted="false" />
+        <AssociationConnector Association="Billing4Model.FK_tblInventoryItem_tblInventory" ManuallyRouted="false" />
+        <AssociationConnector Association="Billing4Model.FK_tblInventoryItem_tblProduct" ManuallyRouted="false" />
+        <AssociationConnector Association="Billing4Model.FK_tblInventoryItem_tblSize" ManuallyRouted="false" />
+        <AssociationConnector Association="Billing4Model.FK_tblInventoryItem_tblTax" ManuallyRouted="false" />
+        <AssociationConnector Association="Billing4Model.FK_tblInventoryItem_tblUnit" ManuallyRouted="false" />
+        <AssociationConnector Association="Billing4Model.FK_tblInvoice_tblPaymentMode1" ManuallyRouted="false" />
+        <AssociationConnector Association="Billing4Model.FK_tblInvoice_tblUser" ManuallyRouted="false" />
+        <AssociationConnector Association="Billing4Model.FK_tblInvoice_tblUser1" ManuallyRouted="false" />
+        <AssociationConnector Association="Billing4Model.FK_tblInvoiceItem_tblInvoice" ManuallyRouted="false" />
+        <AssociationConnector Association="Billing4Model.FK_tblInvoiceItem_tblInvoiceItem" ManuallyRouted="false" />
+        <AssociationConnector Association="Billing4Model.FK_tblInvoiceItem_tblProduct" ManuallyRouted="false" />
+        <AssociationConnector Association="Billing4Model.FK_tblInvoiceItem_tblSize" ManuallyRouted="false" />
+        <AssociationConnector Association="Billing4Model.FK_tblInvoiceItem_tblTax" ManuallyRouted="false" />
+        <AssociationConnector Association="Billing4Model.FK_tblInvoiceItem_tblUnit" ManuallyRouted="false" />
+        <AssociationConnector Association="Billing4Model.FK_tblMeasurementUnit_tblMeasurementUnit" ManuallyRouted="false" />
+        <AssociationConnector Association="Billing4Model.FK_tblMeasurementUnit_tblUser" ManuallyRouted="false" />
+        <AssociationConnector Association="Billing4Model.FK_tblQuotation_tblPaymentMode1" ManuallyRouted="false" />
+        <AssociationConnector Association="Billing4Model.FK_tblProduct_tblProductCategory" ManuallyRouted="false" />
+        <AssociationConnector Association="Billing4Model.FK_tblProduct_tblProductSubCategory" ManuallyRouted="false" />
+        <AssociationConnector Association="Billing4Model.FK_tblProduct_tblSize" ManuallyRouted="false" />
+        <AssociationConnector Association="Billing4Model.FK_tblProduct_tblTax" ManuallyRouted="false" />
+        <AssociationConnector Association="Billing4Model.FK_tblProduct_tblUnit" ManuallyRouted="false" />
+        <AssociationConnector Association="Billing4Model.FK_tblProduct_tblUser" ManuallyRouted="false" />
+        <AssociationConnector Association="Billing4Model.FK_tblProduct_tblUser1" ManuallyRouted="false" />
+        <AssociationConnector Association="Billing4Model.FK_tblQuotationItem_tblProduct" ManuallyRouted="false" />
+        <AssociationConnector Association="Billing4Model.FK_tblProductSubCategory_tblProductCategory" ManuallyRouted="false" />
+        <AssociationConnector Association="Billing4Model.FK_tblQuotation_tblUser" ManuallyRouted="false" />
+        <AssociationConnector Association="Billing4Model.FK_tblQuotation_tblUser1" ManuallyRouted="false" />
+        <AssociationConnector Association="Billing4Model.FK_tblQuotationItem_tblQuotation" ManuallyRouted="false" />
+        <AssociationConnector Association="Billing4Model.FK_tblQuotationItem_tblSize" ManuallyRouted="false" />
+        <AssociationConnector Association="Billing4Model.FK_tblQuotationItem_tblTax" ManuallyRouted="false" />
+        <AssociationConnector Association="Billing4Model.FK_tblQuotationItem_tblUnit" ManuallyRouted="false" />
+        <AssociationConnector Association="Billing4Model.FK_tblUser_tblRole" ManuallyRouted="false" />
+        <AssociationConnector Association="Billing4Model.FK_tblSize_tblUnit" ManuallyRouted="false" />
+        <AssociationConnector Association="Billing4Model.FK_tblSize_tblUser" ManuallyRouted="false" />
+        <AssociationConnector Association="Billing4Model.FK_tblSize_tblUser1" ManuallyRouted="false" />
+        <AssociationConnector Association="Billing4Model.FK_tblStock_tblSize" ManuallyRouted="false" />
+        <AssociationConnector Association="Billing4Model.FK_tblStock_tblTax" ManuallyRouted="false" />
+        <AssociationConnector Association="Billing4Model.FK_tblStock_tblUnit" ManuallyRouted="false" />
+        <AssociationConnector Association="Billing4Model.FK_tblStock_tblUser" ManuallyRouted="false" />
+        <AssociationConnector Association="Billing4Model.FK_tblStock_tblUser1" ManuallyRouted="false" />
+        <AssociationConnector Association="Billing4Model.FK_tblTax_tblUser" ManuallyRouted="false" />
+        <AssociationConnector Association="Billing4Model.FK_tblTax_tblUser1" ManuallyRouted="false" />
+        <AssociationConnector Association="Billing4Model.FK_tblUnit_tblUser" ManuallyRouted="false" />
+        <AssociationConnector Association="Billing4Model.FK_tblUnit_tblUser1" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
