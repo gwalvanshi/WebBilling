@@ -11,7 +11,8 @@ namespace BillingWeb
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class tblSize
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -26,13 +27,25 @@ namespace BillingWeb
         }
     
         public int SizeID { get; set; }
+        [Required(ErrorMessage = "Please enter size name.")]
+        [Display(Name = "Size Name")]
         public string SizeName { get; set; }
+        [Required(ErrorMessage = "Please enter size description.")]
+        [Display(Name = "Size Description")]
         public string SizeDescription { get; set; }
+        [Required(ErrorMessage = "Please select unit.")]
+        [Display(Name = "Unit")]
         public Nullable<int> UnitID { get; set; }
+        [Display(Name = "Is Active")]
         public bool IsActive { get; set; }
+        [Display(Name = "Created On")]
         public System.DateTime CreatedOn { get; set; }
+
+        [Display(Name = "Updated On")]
         public Nullable<System.DateTime> UpdatedOn { get; set; }
+        [Display(Name = "Created By")]
         public Nullable<int> CreatedBy { get; set; }
+        [Display(Name = "Updated By")]
         public Nullable<int> UpdatedBy { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
