@@ -26,10 +26,6 @@ namespace BillingWeb.Controllers
         // GET: Units/Create
         public ActionResult Create()
         {
-            tblUnit tblUnit = new tblUnit();
-            tblUser objSource = (tblUser)Session["UserDetails"];
-            tblUnit.CreatedBy = objSource.Id;
-            tblUnit.UpdatedBy = objSource.Id;
             return View();
         }
 
@@ -43,16 +39,19 @@ namespace BillingWeb.Controllers
             if (ModelState.IsValid)
             {
                 tblUser objSource = (tblUser)Session["UserDetails"];
-                tblUnit.Name = Request["Name"];
-                tblUnit.Description = Request["Description"];
                 tblUnit.IsActive = true;
                 tblUnit.CreatedOn = DateTime.Now;
                 tblUnit.CreatedBy = objSource.Id;
                 db.tblUnits.Add(tblUnit);
                 db.SaveChanges();
+                TempData["Success"] = "Unit added successfully.";
+                ViewBag.Unit= new tblUnit();
                 return RedirectToAction("Index");
             }
-            return RedirectToAction("Index");
+            ViewBag.Unit = new tblUnit();
+            var tblUnits = db.tblUnits.Include(t => t.tblUser).Include(t => t.tblUser1).Where(a => a.IsActive == true);
+            return View("Index", tblUnits.ToList());
+            
         }
 
         // GET: Units/Edit/5
@@ -83,9 +82,6 @@ namespace BillingWeb.Controllers
             if (ModelState.IsValid)
             {
                 tblUser objSource = (tblUser)Session["UserDetails"];
-                tblUnit.UnitID = Int32.Parse(Request["UnitID"]);
-                tblUnit.Name = Request["Name"];
-                tblUnit.Description = Request["Description"];
                 tblUnit.UpdatedOn = DateTime.Now;
                 tblUnit.UpdatedBy = objSource.Id;
                 db.Entry(tblUnit).State = EntityState.Modified;
@@ -94,7 +90,9 @@ namespace BillingWeb.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return RedirectToAction("Index");
+            ViewBag.Unit = new tblUnit();
+            var tblUnits = db.tblUnits.Include(t => t.tblUser).Include(t => t.tblUser1).Where(a => a.IsActive == true);
+            return View("Index", tblUnits.ToList());
         }
 
         // GET: Units/Delete/5
@@ -121,7 +119,6 @@ namespace BillingWeb.Controllers
                 return RedirectToAction("Index");
             }
         }
-
         
         protected override void Dispose(bool disposing)
         {

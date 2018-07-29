@@ -17,23 +17,22 @@ namespace BillingWeb.Controllers
         // GET: Sizes
         public ActionResult Index()
         {
+            ViewBag.UnitID = new SelectList(db.tblUnits, "UnitID", "Name");
             var tblSizes = db.tblSizes.Include(t => t.tblUnit).Include(t => t.tblUser).Include(t => t.tblUser1);
             ViewBag.Size = new tblSize();
-            //ViewBag.Unit = new tblUnit();
-            ViewBag.UnitID = new SelectList(db.tblUnits, "UnitID", "Name");
             return View(tblSizes.ToList());
         }
 
         // GET: Sizes/Create
         public ActionResult Create()
         {
-            tblSize tblSize = new tblSize();
-            tblUser objSource = (tblUser)Session["UserDetails"];
-            ViewBag.UnitID = new SelectList(db.tblUnits, "UnitID", "Name");
-            tblSize.CreatedBy = objSource.Id;
-            tblSize.UpdatedBy = objSource.Id;
+            //tblSize tblSize = new tblSize();
+            //tblUser objSource = (tblUser)Session["UserDetails"];
+            //ViewBag.UnitID = new SelectList(db.tblUnits, "UnitID", "Name");
+            //tblSize.CreatedBy = objSource.Id;
+            //tblSize.UpdatedBy = objSource.Id;
             return View();
-            
+
         }
 
         // POST: Sizes/Create
@@ -46,16 +45,17 @@ namespace BillingWeb.Controllers
             if (ModelState.IsValid)
             {
                 tblUser objSource = (tblUser)Session["UserDetails"];
-                tblSize.SizeName = Request["SizeName"];
-                tblSize.SizeDescription = Request["SizeDescription"];
                 tblSize.IsActive = true;
                 tblSize.CreatedOn = DateTime.Now;
                 tblSize.CreatedBy = objSource.Id;
                 db.tblSizes.Add(tblSize);
                 db.SaveChanges();
+                ViewBag.Size = new tblSize();
                 return RedirectToAction("Index");
             }
-            return RedirectToAction("Index");
+            ViewBag.Size = new tblSize();
+            var tblSizes = db.tblSizes.Include(t => t.tblUser).Include(t => t.tblUser1).Where(a => a.IsActive == true);
+            return View("Index", tblSizes.ToList());
         }
 
         // GET: Sizes/Edit/5
@@ -87,20 +87,19 @@ namespace BillingWeb.Controllers
             {
                 ViewBag.UnitID = new SelectList(db.tblUnits, "UnitID", "Name");
                 tblUser objSource = (tblUser)Session["UserDetails"];
-                ViewBag.SizeID = Int32.Parse(Request["SizeID"]);
-                tblSize.SizeName = Request["SizeName"];
-                tblSize.SizeDescription = Request["SizeDescription"];
                 tblSize.UpdatedOn = DateTime.Now;
                 tblSize.UpdatedBy = objSource.Id;
                 db.Entry(tblSize).State = EntityState.Modified;
                 ViewBag.Size = new tblSize();
                 TempData["Success"] = "Size updated successfully.";
                 db.SaveChanges();
-                ViewBag.Size = new tblSize();
-                var tblSizes = db.tblSizes.Include(t => t.tblUser).Include(t => t.tblUser1).Where(a => a.IsActive == true);
-                return View("Index", tblSizes.ToList());
+                return RedirectToAction("Index");
+
             }
-            return RedirectToAction("Index");
+            ViewBag.Size = new tblSize();
+            var tblSizes = db.tblSizes.Include(t => t.tblUser).Include(t => t.tblUser1).Where(a => a.IsActive == true);
+            return View("Index", tblSizes.ToList());
+
         }
 
         // GET: Sizes/Delete/5
