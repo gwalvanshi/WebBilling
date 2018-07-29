@@ -1,7 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\BillingWeb",
+    "\\BillingWeb\\Controllers"
   ],
-  "SelectedNode": "\\BillingWeb.sln",
+  "SelectedNode": "\\BillingWeb\\Controllers\\ProductCategoriesController.cs",
   "PreviewInSolutionExplorer": false
 }
