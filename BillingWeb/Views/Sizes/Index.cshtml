@@ -1,0 +1,86 @@
+﻿@model IEnumerable<BillingWeb.tblSize>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Size</h2>
+
+<div>
+    @if (((tblSize)ViewBag.Size).SizeID > 0)
+    {
+        Html.RenderPartial("Edit", (tblSize)ViewBag.Size);
+    }
+    else
+    {
+        Html.RenderPartial("Create", (tblSize)ViewBag.Size);
+    }
+
+</div>
+@if (TempData["Success"] != null)
+            {
+    <p class="alert alert-success" id="successMessage">@TempData["Success"]</p>
+}
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.SizeName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SizeDescription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tblUnit.Name)
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.IsActive)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreatedBy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreatedOn)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UpdatedBy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UpdatedOn)
+        </th>*@
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.SizeName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SizeDescription)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tblUnit.Name)
+        </td>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.IsActive)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tblUser.UserName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreatedOn)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tblUser1.UserName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UpdatedOn)
+        </td>*@
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.SizeID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.SizeID }, new { onclick = "return confirm('Are you sure you wish to delete this record?');" })
+        </td>
+    </tr>
+}
+
+</table>
