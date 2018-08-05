@@ -11,7 +11,8 @@ namespace BillingWeb
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class tblProduct
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -24,13 +25,22 @@ namespace BillingWeb
         }
     
         public int ProductID { get; set; }
+        
+        [Display(Name = "Product Category")]
         public Nullable<int> ProductCategoryID { get; set; }
+        [Display(Name = "Product SubCategory")]
         public Nullable<int> ProductSubCategoryID { get; set; }
+        [Display(Name = "Product Name")]
         public string ProductName { get; set; }
+        [Display(Name = "Product Description")]
         public string ProductDescription { get; set; }
+        [Display(Name = "Manufacture")]
         public string Make { get; set; }
+        [Display(Name = "Tax")]
         public Nullable<int> TaxID { get; set; }
+        [Display(Name = "Size")]
         public Nullable<int> SizeID { get; set; }
+        [Display(Name = "Rate Per Unit")]
         public Nullable<decimal> RatePerUnit { get; set; }
         public Nullable<decimal> Discount { get; set; }
         public string Remark { get; set; }
@@ -39,7 +49,9 @@ namespace BillingWeb
         public Nullable<System.DateTime> UpdatedOn { get; set; }
         public Nullable<int> CreatedBy { get; set; }
         public Nullable<int> UpdatedBy { get; set; }
+        [Display(Name = "Unit")]
         public Nullable<int> UnitID { get; set; }
+
         public Nullable<decimal> SGST { get; set; }
         public Nullable<decimal> CGST { get; set; }
     
