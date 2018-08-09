@@ -20,6 +20,20 @@ namespace BillingWeb.Controllers
             var tblProducts = db.tblProducts.Include(t => t.tblProductCategory).Include(t => t.tblProductSubCategory).Include(t => t.tblSize).Include(t => t.tblTax).Include(t => t.tblUnit).Include(t => t.tblUser).Include(t => t.tblUser1);
             return View(tblProducts.ToList());
         }
+        public JsonResult GetSubCategories(int Id)
+        {
+            var productSubCategories = from s in db.tblProductSubCategories
+                        where s.ProductCategoryID == Id
+                        select s;
+            return Json(new SelectList(productSubCategories.ToArray(), "ProductSubCategoryID", "SubCategoryName"), JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetSize(int Id)
+        {
+            var size = from s in db.tblSizes
+                                       where s.UnitID == Id
+                                       select s;
+            return Json(new SelectList(size.ToArray(), "SizeID", "SizeName"), JsonRequestBehavior.AllowGet);
+        }
 
         // GET: Products/Details/5
         public ActionResult Details(int? id)
@@ -58,11 +72,17 @@ namespace BillingWeb.Controllers
         {
             if (ModelState.IsValid)
             {
+                tblUser objSource = (tblUser)Session["UserDetails"];
+                tblProduct.IsActive = true;
+                tblProduct.CreatedOn = DateTime.Now;
+                tblProduct.CreatedBy = objSource.Id;
                 db.tblProducts.Add(tblProduct);
                 db.SaveChanges();
+                TempData["Success"] = "Product created successfuly.";
+                ViewBag.Product = new tblProduct();
                 return RedirectToAction("Index");
+                
             }
-
             ViewBag.ProductCategoryID = new SelectList(db.tblProductCategories, "ProductCategoryID", "CategoryName", tblProduct.ProductCategoryID);
             ViewBag.ProductSubCategoryID = new SelectList(db.tblProductSubCategories, "ProductSubCategoryID", "SubCategoryName", tblProduct.ProductSubCategoryID);
             ViewBag.SizeID = new SelectList(db.tblSizes, "SizeID", "SizeName", tblProduct.SizeID);
@@ -104,7 +124,13 @@ namespace BillingWeb.Controllers
         {
             if (ModelState.IsValid)
             {
+                tblUser objSource = (tblUser)Session["UserDetails"];
+                tblProduct.UpdatedBy = objSource.Id;
+                tblProduct.UpdatedOn = DateTime.Now;
+
                 db.Entry(tblProduct).State = EntityState.Modified;
+                ViewBag.Product = new tblProduct();
+                TempData["Success"] = "Product updated successfully.";
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

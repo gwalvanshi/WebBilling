@@ -1,141 +1,180 @@
 ﻿@model IEnumerable<BillingWeb.tblProduct>
-
+@using GridMvc.Html
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+
+<link href="@Url.Content("~/Content/Gridmvc.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" />
+<script src="@Url.Content("~/Scripts/jquery-1.10.2.min.js")"></script>
+<script src="@Url.Content("~/Scripts/gridmvc.min.js")"></script>
+
+
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.ProductName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ProductDescription)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.tblProductCategory.CategoryName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.tblProductSubCategory.SubCategoryName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Make)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Remark)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.tblUnit.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.tblSize.SizeName)
-        </th>
+<div class="code-cut">
+    @Html.Grid(Model).Columns(columns =>
+{
+    columns.Add(c => c.tblProductCategory.CategoryName).Titled("Category").Filterable(true);
+    columns.Add(c => c.tblProductSubCategory.SubCategoryName).Titled("Sub Category").Filterable(true);
+    columns.Add(c => c.ProductName).Titled("Product Name").Filterable(true);
+    columns.Add(c => c.Make).Titled("Make").Filterable(true);
+    columns.Add(c => c.ProductDescription).Titled("Description").Filterable(true);
+    columns.Add(c => c.tblTax.TaxName).Titled("Tax").Filterable(true);
+    columns.Add(c => c.CGST).Titled("CST").Filterable(true);
+    columns.Add(c => c.SGST).Titled("SGST").Filterable(true);
+    columns.Add(c => c.tblUnit.Name).Titled("Unit").Filterable(true);
+    columns.Add(c => c.tblSize.SizeName).Titled("Size").Filterable(true);
+    columns.Add(c => c.RatePerUnit).Titled("Rate").Filterable(true);
+    columns.Add(c => c.Discount).Titled("Discount").Filterable(true);
+    columns.Add()
+    .Encoded(false)
+    .Sanitized(false)
+    .SetWidth(30)
+    .RenderValueAs(o => Html.ActionLink("Edit", "Edit", new { id = o.ProductID }));
+    //.RenderValueAs(o1 => Html.ActionLink("Delete", "Delete", new { id = o1.ProductCategoryID }));
 
-        <th>
-            @Html.DisplayNameFor(model => model.RatePerUnit)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Discount)
-        </th>
+}).WithPaging(3).Sortable(true)
 
-        <th>
-            @Html.DisplayNameFor(model => model.tblTax.TaxName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SGST)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CGST)
-        </th>
-        @*<th>
-                @Html.DisplayNameFor(model => model.IsActive)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedOn)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UpdatedOn)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.tblUser.UserName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.tblUser1.UserName)
-            </th>*@
-        <th></th>
-    </tr>
+</div>
 
-    @foreach (var item in Model)
-    {
+
+@*<table class="table">
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductName)
+            <th>
+                @Html.DisplayNameFor(model => model.ProductName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductDescription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.tblProductCategory.CategoryName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.tblProductSubCategory.SubCategoryName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Make)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Remark)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.tblUnit.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.tblSize.SizeName)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.RatePerUnit)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Discount)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.tblTax.TaxName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SGST)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CGST)
+            </th>
+            @*<th>
+                    @Html.DisplayNameFor(model => model.IsActive)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CreatedOn)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UpdatedOn)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.tblUser.UserName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.tblUser1.UserName)
+                </th>
+    <th></th>
+        </tr>*@
+
+@*@foreach (var item in Model)
+{
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductDescription)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tblProductCategory.CategoryName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tblProductSubCategory.SubCategoryName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Make)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Remark)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tblUnit.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tblSize.SizeName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RatePerUnit)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Discount)
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.tblTax.TaxName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SGST)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CGST)
+        </td>*@
+
+        @*<td>
+                @Html.DisplayFor(modelItem => item.IsActive)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ProductDescription)
+                @Html.DisplayFor(modelItem => item.CreatedOn)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.tblProductCategory.CategoryName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.tblProductSubCategory.SubCategoryName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Make)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Remark)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.tblUnit.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.tblSize.SizeName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RatePerUnit)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Discount)
+                @Html.DisplayFor(modelItem => item.UpdatedOn)
             </td>
 
             <td>
-                @Html.DisplayFor(modelItem => item.tblTax.TaxName)
+                @Html.DisplayFor(modelItem => item.tblUser.UserName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.SGST)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CGST)
-            </td>
+                @Html.DisplayFor(modelItem => item.tblUser1.UserName)
+            </td>*@
+        @*<td>
+            @Html.ActionLink("Edit", "Edit", new
+       {
+           id = item.ProductID
+       }) |
+            @Html.ActionLink("Details", "Details", new
+       {
+           id = item.ProductID
+       }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.ProductID })
+        </td>
+    </tr>
+}
 
-            @*<td>
-                    @Html.DisplayFor(modelItem => item.IsActive)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CreatedOn)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.UpdatedOn)
-                </td>
-
-                <td>
-                    @Html.DisplayFor(modelItem => item.tblUser.UserName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.tblUser1.UserName)
-                </td>*@
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.ProductID }) |
-                @Html.ActionLink("Details", "Details", new { id = item.ProductID }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.ProductID })
-            </td>
-        </tr>
-    }
-
-</table>
+</table>*@
