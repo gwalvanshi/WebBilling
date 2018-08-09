@@ -17,6 +17,7 @@ namespace BillingWeb
         public int InvoiceItemID { get; set; }
         public Nullable<int> InvoiceID { get; set; }
         public Nullable<int> ProductID { get; set; }
+        public bool IsDeleted { get; set; }
         public string Make { get; set; }
         public Nullable<decimal> Quantity { get; set; }
         public Nullable<int> UnitID { get; set; }
@@ -33,7 +34,11 @@ namespace BillingWeb
         public bool IsActive { get; set; }
         public Nullable<decimal> SGST { get; set; }
         public Nullable<decimal> CGST { get; set; }
-    
+
+        public string ProductName { get; set; }
+        public string UnitName { get; set; }
+
+        public string SizeName { get; set; }
         public virtual tblInvoice tblInvoice { get; set; }
         public virtual tblInvoiceItem tblInvoiceItem1 { get; set; }
         public virtual tblInvoiceItem tblInvoiceItem2 { get; set; }

@@ -40,9 +40,20 @@ namespace BillingWeb.Controllers
         public ActionResult Create()
         {
             ViewBag.PaymentModeID = new SelectList(db.tblPaymentModes, "PaymentModeID", "PaymentMode");
-            ViewBag.CreatedBy = new SelectList(db.tblUsers, "Id", "UserName");
-            ViewBag.UpdatedBy = new SelectList(db.tblUsers, "Id", "UserName");
-            return View();
+            tblInvoice tblInvoice = new tblInvoice();
+            //List<tblInvoiceItem> tblItem = new List<tblInvoiceItem>();
+            //tblInvoiceItem objtblInvoiceItem = new tblInvoiceItem();
+            //objtblInvoiceItem.ProductID = null;
+            //objtblInvoiceItem.SizeID = null;
+            //objtblInvoiceItem.UnitID = null;
+            //objtblInvoiceItem.Quantity = null;
+            //objtblInvoiceItem.RatePerUnit = null;
+            //tblItem.Add(objtblInvoiceItem);
+            //tblInvoice.tblInvoiceItems = tblItem;
+            ViewBag.ProductID = new SelectList(db.tblProducts, "ProductID", "ProductName");
+            ViewBag.SizeID = new SelectList(db.tblSizes.Where(a=>a.UnitID==null), "SizeID", "SizeName");
+            ViewBag.UnitID = new SelectList(db.tblUnits, "UnitID", "Name", tblInvoice.UnitID);
+            return View(tblInvoice);
         }
 
         // POST: Invoices/Create
@@ -50,18 +61,52 @@ namespace BillingWeb.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "InvoiceID,InvoiceNo,BillingAddress,ShippingAddress,InvoiceType,GSTIN,CustomerName,ContactNumber,Email,Website,PaymentModeID,IsPaid,IsOnCredit,InvoiceDate,PaymentExpectedBy,Remarks,IsActive,CreatedOn,UpdatedOn,CreatedBy,UpdatedBy")] tblInvoice tblInvoice)
+        public ActionResult Create(tblInvoice tblInvoice,ICollection<tblInvoiceItem> invItem, string submit, string tblData)
         {
-            if (ModelState.IsValid)
+            List<tblInvoiceItem> tblItem = new List<tblInvoiceItem>();
+            tblInvoiceItem objtblInvoiceItem = new tblInvoiceItem();
+            tblProduct objpro = db.tblProducts.Where(p => p.ProductID == tblInvoice.ProductID).FirstOrDefault();
+            tblUnit objUnit= db.tblUnits.Where(t => t.UnitID == tblInvoice.UnitID).FirstOrDefault();
+            tblSize objSize = db.tblSizes.Where(t => t.UnitID == tblInvoice.SizeID).FirstOrDefault();
+            objtblInvoiceItem.ProductID = tblInvoice.ProductID;           
+            objtblInvoiceItem.ProductName = objpro.ProductName;
+            objtblInvoiceItem.SizeID = tblInvoice.SizeID;
+            objtblInvoiceItem.UnitID = tblInvoice.UnitID;
+            objtblInvoiceItem.TaxID = tblInvoice.TaxID;
+            objtblInvoiceItem.Tax = tblInvoice.Tax;
+            objtblInvoiceItem.TaxAmount = tblInvoice.TaxAmount;
+            objtblInvoiceItem.Quantity = tblInvoice.Quantity;
+            objtblInvoiceItem.RatePerUnit = tblInvoice.RatePerUnit;
+            objtblInvoiceItem.IsDeleted = false;
+            objtblInvoiceItem.UnitName = objUnit.Name;
+            objtblInvoiceItem.SizeName = objSize.SizeName;
+            objtblInvoiceItem.HSN_SAC = tblInvoice.HSN_SAC;
+            objtblInvoiceItem.Discount = tblInvoice.Discount;
+            objtblInvoiceItem.DiscountAmount = tblInvoice.DiscountAmount;
+            objtblInvoiceItem.SGST = tblInvoice.SGST;
+            if (invItem == null)
             {
-                db.tblInvoices.Add(tblInvoice);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                tblItem.Add(objtblInvoiceItem);
+                tblInvoice.tblInvoiceItems = tblItem;
             }
+            else
+            {
+                invItem.Add(objtblInvoiceItem);
+                tblInvoice.tblInvoiceItems = invItem;
+            }
+            //if (ModelState.IsValid)
+            //{               
+            //    db.tblInvoices.Add(tblInvoice);
+            //    db.SaveChanges();
+            //    return RedirectToAction("Index");
+            //}
 
             ViewBag.PaymentModeID = new SelectList(db.tblPaymentModes, "PaymentModeID", "PaymentMode", tblInvoice.PaymentModeID);
-            ViewBag.CreatedBy = new SelectList(db.tblUsers, "Id", "UserName", tblInvoice.CreatedBy);
-            ViewBag.UpdatedBy = new SelectList(db.tblUsers, "Id", "UserName", tblInvoice.UpdatedBy);
+            ViewBag.ProductID = new SelectList(db.tblProducts, "ProductID", "ProductName");
+            ViewBag.SizeID = new SelectList(db.tblSizes.Where(a => a.UnitID == tblInvoice.UnitID), "SizeID", "SizeName", tblInvoice.SizeID);
+            ViewBag.UnitID = new SelectList(db.tblUnits, "UnitID", "Name", tblInvoice.UnitID);
+            // ViewBag.CreatedBy = new SelectList(db.tblUsers, "Id", "UserName", tblInvoice.CreatedBy);
+            // ViewBag.UpdatedBy = new SelectList(db.tblUsers, "Id", "UserName", tblInvoice.UpdatedBy);
             return View(tblInvoice);
         }
 
@@ -135,6 +180,36 @@ namespace BillingWeb.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+        [HttpPost]
+        public JsonResult BindSize(string unitId)
+        {
+            int pId = Convert.ToInt32(unitId);
+            var location = (from loc in db.tblSizes
+                            where loc.UnitID == pId
+                            select new
+                            {
+                                label = loc.SizeName,
+                                val = loc.SizeID
+                            }).ToList();
+            return Json(location);
+        }
+        [HttpPost]
+        public JsonResult GetProductDetails(string prodID)
+        {
+            int pId = Convert.ToInt32(prodID);
+            // var prod = db.tblProducts.Where(p => p.ProductID == pId).ToList();
+
+            var prod = (from loc in db.tblProducts
+                        where loc.ProductID == pId
+                        select new
+                        {
+                           loc.TaxID,
+                           loc.ProductName,
+                           loc.SGST,
+                           loc.tblTax.TaxPercentage
+                        }).FirstOrDefault();
+            return Json(prod);
         }
     }
 }

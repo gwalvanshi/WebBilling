@@ -1,0 +1,147 @@
+﻿@model IEnumerable<BillingWeb.tblInvoiceItem>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Make)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Quantity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RatePerUnit)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Tax)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TaxAmount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Discount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DiscountAmount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TotalAmount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Remark)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HSN_SAC)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsActive)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SGST)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CGST)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tblInvoice.InvoiceNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tblInvoiceItem1.Make)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tblInvoiceItem2.Make)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tblProduct.ProductName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tblSize.SizeName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tblTax.TaxName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tblUnit.Name)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Make)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Quantity)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RatePerUnit)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Tax)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TaxAmount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Discount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DiscountAmount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TotalAmount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Remark)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HSN_SAC)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsActive)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SGST)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CGST)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tblInvoice.InvoiceNo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tblInvoiceItem1.Make)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tblInvoiceItem2.Make)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tblProduct.ProductName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tblSize.SizeName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tblTax.TaxName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tblUnit.Name)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.InvoiceItemID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.InvoiceItemID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.InvoiceItemID })
+        </td>
+    </tr>
+}
+
+</table>

@@ -42,7 +42,8 @@ namespace BillingWeb
         public Nullable<System.DateTime> UpdatedOn { get; set; }
         public Nullable<int> CreatedBy { get; set; }
         public Nullable<int> UpdatedBy { get; set; }
-    
+       
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblDeliveryNote> tblDeliveryNotes { get; set; }
         public virtual tblPaymentMode tblPaymentMode { get; set; }
@@ -50,5 +51,23 @@ namespace BillingWeb
         public virtual tblUser tblUser1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblInvoiceItem> tblInvoiceItems { get; set; }
+
+        public Nullable<int> ProductID { get; set; }
+        public string Make { get; set; }
+        public Nullable<decimal> Quantity { get; set; }
+        public Nullable<int> UnitID { get; set; }
+        public Nullable<int> SizeID { get; set; }
+        public Nullable<decimal> RatePerUnit { get; set; }
+        public Nullable<int> TaxID { get; set; }
+        public Nullable<decimal> Tax { get; set; }
+        public Nullable<decimal> TaxAmount { get; set; }
+        public Nullable<decimal> Discount { get; set; }
+        public Nullable<decimal> DiscountAmount { get; set; }
+        public Nullable<decimal> TotalAmount { get; set; }
+        public string Remark { get; set; }
+        public Nullable<int> HSN_SAC { get; set; }
+      
+        public Nullable<decimal> SGST { get; set; }
+        public Nullable<decimal> CGST { get; set; }
     }
 }

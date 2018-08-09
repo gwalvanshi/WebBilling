@@ -201,7 +201,6 @@ D:\Chandra\WebBilling\BillingWeb\bin\Microsoft.Owin.Security.OAuth.xml
 D:\Chandra\WebBilling\BillingWeb\bin\Microsoft.Owin.Security.Google.xml
 D:\Chandra\WebBilling\BillingWeb\bin\Microsoft.Owin.Security.Twitter.xml
 D:\Chandra\WebBilling\BillingWeb\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
-D:\Chandra\WebBilling\BillingWeb\obj\Debug\BillingWeb.csprojResolveAssemblyReference.cache
 D:\Chandra\WebBilling\BillingWeb\obj\Debug\BillingWeb.dll
 D:\Chandra\WebBilling\BillingWeb\obj\Debug\BillingWeb.pdb
 D:\MyCode\WebBilling\BillingWeb\bin\roslyn\csc.exe
@@ -273,3 +272,4 @@ D:\MyCode\WebBilling\BillingWeb\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 D:\MyCode\WebBilling\BillingWeb\obj\Debug\BillingWeb.csprojResolveAssemblyReference.cache
 D:\MyCode\WebBilling\BillingWeb\obj\Debug\BillingWeb.dll
 D:\MyCode\WebBilling\BillingWeb\obj\Debug\BillingWeb.pdb
+D:\Chandra\WebBilling\BillingWeb\obj\Debug\BillingWeb.csprojResolveAssemblyReference.cache
