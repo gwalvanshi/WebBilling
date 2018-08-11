@@ -269,7 +269,7 @@
 
         @{
             int i = 0;
-            foreach (var item in Model.tblInvoiceItems)
+            foreach (var item in Model.tblInvoiceItemDetails)
             {
 
 
@@ -299,9 +299,9 @@
                     </td>
                     <td>
                         @Html.TextBox("[" + i + "].TotalAmount", item.TotalAmount)
-                        @Html.TextBox("[" + i + "].UnitID", item.UnitID, new { htmlAttributes = new { @style = "display:none;" } })
-                        @Html.TextBox("[" + i + "].SizeID", item.SizeID, new { htmlAttributes = new { @style = "display:none;" } })
-                        @Html.TextBox("[" + i + "].TaxID", item.TaxID, new { htmlAttributes = new { @style = "display:none;" } })
+                        @Html.TextBox("[" + i + "].UnitID", item.UnitID, new { style = "display: none;" })
+                        @Html.TextBox("[" + i + "].SizeID", item.SizeID, new { style = "display: none;" })
+                        @Html.TextBox("[" + i + "].TaxID", item.TaxID, new { style = "display: none;" })
                     </td>
                 </tr>
                 i++;

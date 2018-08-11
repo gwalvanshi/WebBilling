@@ -52,6 +52,7 @@ namespace BillingWeb
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblInvoiceItem> tblInvoiceItems { get; set; }
 
+
         public Nullable<int> ProductID { get; set; }
         public string Make { get; set; }
         public Nullable<decimal> Quantity { get; set; }

@@ -272,4 +272,3 @@ D:\MyCode\WebBilling\BillingWeb\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 D:\MyCode\WebBilling\BillingWeb\obj\Debug\BillingWeb.csprojResolveAssemblyReference.cache
 D:\MyCode\WebBilling\BillingWeb\obj\Debug\BillingWeb.dll
 D:\MyCode\WebBilling\BillingWeb\obj\Debug\BillingWeb.pdb
-D:\Chandra\WebBilling\BillingWeb\obj\Debug\BillingWeb.csprojResolveAssemblyReference.cache

@@ -61,45 +61,69 @@ namespace BillingWeb.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(tblInvoice tblInvoice,ICollection<tblInvoiceItem> invItem, string submit, string tblData)
+        public ActionResult Create(tblInvoice tblInvoice, List<tblInvoiceItem> invItem, string submit)
         {
+
             List<tblInvoiceItem> tblItem = new List<tblInvoiceItem>();
             tblInvoiceItem objtblInvoiceItem = new tblInvoiceItem();
-            tblProduct objpro = db.tblProducts.Where(p => p.ProductID == tblInvoice.ProductID).FirstOrDefault();
-            tblUnit objUnit= db.tblUnits.Where(t => t.UnitID == tblInvoice.UnitID).FirstOrDefault();
-            tblSize objSize = db.tblSizes.Where(t => t.UnitID == tblInvoice.SizeID).FirstOrDefault();
-            objtblInvoiceItem.ProductID = tblInvoice.ProductID;           
-            objtblInvoiceItem.ProductName = objpro.ProductName;
-            objtblInvoiceItem.SizeID = tblInvoice.SizeID;
-            objtblInvoiceItem.UnitID = tblInvoice.UnitID;
-            objtblInvoiceItem.TaxID = tblInvoice.TaxID;
-            objtblInvoiceItem.Tax = tblInvoice.Tax;
-            objtblInvoiceItem.TaxAmount = tblInvoice.TaxAmount;
-            objtblInvoiceItem.Quantity = tblInvoice.Quantity;
-            objtblInvoiceItem.RatePerUnit = tblInvoice.RatePerUnit;
-            objtblInvoiceItem.IsDeleted = false;
-            objtblInvoiceItem.UnitName = objUnit.Name;
-            objtblInvoiceItem.SizeName = objSize.SizeName;
-            objtblInvoiceItem.HSN_SAC = tblInvoice.HSN_SAC;
-            objtblInvoiceItem.Discount = tblInvoice.Discount;
-            objtblInvoiceItem.DiscountAmount = tblInvoice.DiscountAmount;
-            objtblInvoiceItem.SGST = tblInvoice.SGST;
-            if (invItem == null)
+
+          
+            if (submit == "Add Row")
             {
-                tblItem.Add(objtblInvoiceItem);
-                tblInvoice.tblInvoiceItems = tblItem;
+                tblProduct objpro = db.tblProducts.Where(p => p.ProductID == tblInvoice.ProductID).FirstOrDefault();
+                tblUnit objUnit = db.tblUnits.Where(t => t.UnitID == tblInvoice.UnitID).FirstOrDefault();
+                tblSize objSize = db.tblSizes.Where(t => t.SizeID == tblInvoice.SizeID).FirstOrDefault();
+                objtblInvoiceItem.ProductID = tblInvoice.ProductID;
+                objtblInvoiceItem.ProductName = objpro.ProductName;
+                objtblInvoiceItem.SizeID = tblInvoice.SizeID;
+                objtblInvoiceItem.UnitID = tblInvoice.UnitID;
+                objtblInvoiceItem.TaxID = tblInvoice.TaxID;
+                objtblInvoiceItem.Tax = tblInvoice.Tax;
+                objtblInvoiceItem.TaxAmount = tblInvoice.TaxAmount;
+                objtblInvoiceItem.Quantity = tblInvoice.Quantity;
+                objtblInvoiceItem.RatePerUnit = tblInvoice.RatePerUnit;
+                objtblInvoiceItem.IsDeleted = false;
+                objtblInvoiceItem.UnitName = objUnit.Name;
+                objtblInvoiceItem.SizeName = objSize.SizeName;
+                objtblInvoiceItem.HSN_SAC = tblInvoice.HSN_SAC;
+                objtblInvoiceItem.Discount = tblInvoice.Discount;
+                objtblInvoiceItem.DiscountAmount = tblInvoice.DiscountAmount;
+                objtblInvoiceItem.SGST = tblInvoice.SGST;
+                if (invItem == null)
+                {             
+                    tblItem.Add(objtblInvoiceItem);
+                    tblInvoice.tblInvoiceItems = tblItem;
+                }
+                else
+                {
+                    invItem.Add(objtblInvoiceItem);
+                    tblInvoice.tblInvoiceItems = invItem;
+                }
             }
-            else
+            if (submit == "Delete Row")
             {
-                invItem.Add(objtblInvoiceItem);
+                invItem.RemoveAll(a=>a.IsDeleted==true);
                 tblInvoice.tblInvoiceItems = invItem;
             }
-            //if (ModelState.IsValid)
-            //{               
-            //    db.tblInvoices.Add(tblInvoice);
-            //    db.SaveChanges();
-            //    return RedirectToAction("Index");
-            //}
+            if (submit == "Save Invoice")
+            {
+
+            }
+            if (submit == "Print Preview")
+            {
+
+            }
+            if (submit == "Print")
+            {
+
+            }           
+
+                //if (ModelState.IsValid)
+                //{               
+                //    db.tblInvoices.Add(tblInvoice);
+                //    db.SaveChanges();
+                //    return RedirectToAction("Index");
+                //}
 
             ViewBag.PaymentModeID = new SelectList(db.tblPaymentModes, "PaymentModeID", "PaymentMode", tblInvoice.PaymentModeID);
             ViewBag.ProductID = new SelectList(db.tblProducts, "ProductID", "ProductName");
