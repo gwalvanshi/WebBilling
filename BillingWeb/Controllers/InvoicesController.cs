@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using BillingWeb;
+using System.Configuration;
 
 namespace BillingWeb.Controllers
 {
@@ -39,17 +40,13 @@ namespace BillingWeb.Controllers
         // GET: Invoices/Create
         public ActionResult Create()
         {
+           
+            Guid hg = Guid.NewGuid();
+            string uni = hg.ToString().Substring(0, 8);            
+
             ViewBag.PaymentModeID = new SelectList(db.tblPaymentModes, "PaymentModeID", "PaymentMode");
             tblInvoice tblInvoice = new tblInvoice();
-            //List<tblInvoiceItem> tblItem = new List<tblInvoiceItem>();
-            //tblInvoiceItem objtblInvoiceItem = new tblInvoiceItem();
-            //objtblInvoiceItem.ProductID = null;
-            //objtblInvoiceItem.SizeID = null;
-            //objtblInvoiceItem.UnitID = null;
-            //objtblInvoiceItem.Quantity = null;
-            //objtblInvoiceItem.RatePerUnit = null;
-            //tblItem.Add(objtblInvoiceItem);
-            //tblInvoice.tblInvoiceItems = tblItem;
+            tblInvoice.InvoiceNo = ConfigurationManager.AppSettings["InvoicePrefix"]+"00"+ uni.ToUpper();
             ViewBag.ProductID = new SelectList(db.tblProducts, "ProductID", "ProductName");
             ViewBag.SizeID = new SelectList(db.tblSizes.Where(a=>a.UnitID==null), "SizeID", "SizeName");
             ViewBag.UnitID = new SelectList(db.tblUnits, "UnitID", "Name", tblInvoice.UnitID);
@@ -66,7 +63,6 @@ namespace BillingWeb.Controllers
 
             List<tblInvoiceItem> tblItem = new List<tblInvoiceItem>();
             tblInvoiceItem objtblInvoiceItem = new tblInvoiceItem();
-
           
             if (submit == "Add Row")
             {
@@ -89,6 +85,7 @@ namespace BillingWeb.Controllers
                 objtblInvoiceItem.Discount = tblInvoice.Discount;
                 objtblInvoiceItem.DiscountAmount = tblInvoice.DiscountAmount;
                 objtblInvoiceItem.SGST = tblInvoice.SGST;
+                objtblInvoiceItem.Make = tblInvoice.Make;
                 if (invItem == null)
                 {             
                     tblItem.Add(objtblInvoiceItem);
@@ -102,7 +99,8 @@ namespace BillingWeb.Controllers
             }
             if (submit == "Delete Row")
             {
-                invItem.RemoveAll(a=>a.IsDeleted==true);
+                ModelState.Clear();
+                invItem.RemoveAll(a=>a.IsDeleted==true);               
                 tblInvoice.tblInvoiceItems = invItem;
             }
             if (submit == "Save Invoice")
