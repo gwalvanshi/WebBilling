@@ -11,7 +11,8 @@ namespace BillingWeb
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class tblProductCategory
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,7 +23,12 @@ namespace BillingWeb
         }
     
         public int ProductCategoryID { get; set; }
+        
+        [Required(ErrorMessage ="Please enter the category name")]
+        [Display(Name ="Name")]
         public string CategoryName { get; set; }
+        [Required(ErrorMessage ="Please enter the description")]
+        [Display(Name ="Description")]
         public string Description { get; set; }
         public Nullable<int> HSN_SAC { get; set; }
         public Nullable<System.DateTime> CreatedOn { get; set; }
