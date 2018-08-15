@@ -11,7 +11,8 @@ namespace BillingWeb
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class tblProductSubCategory
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -19,10 +20,14 @@ namespace BillingWeb
         {
             this.tblProducts = new HashSet<tblProduct>();
         }
-    
         public int ProductSubCategoryID { get; set; }
+        [Required(ErrorMessage ="Please enter product category")]
         public int ProductCategoryID { get; set; }
+        [Required(ErrorMessage ="Please enter sub category")]
+        [Display(Name ="Sub Category")]
         public string SubCategoryName { get; set; }
+        [Required(ErrorMessage ="Please enter description")]
+        [Display(Name ="Description")]
         public string Description { get; set; }
         public Nullable<bool> IsActive { get; set; }
         public Nullable<System.DateTime> CreatedOn { get; set; }
