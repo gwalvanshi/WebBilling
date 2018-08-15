@@ -20,7 +20,8 @@ namespace BillingWeb
             this.tblDeliveryNotes = new HashSet<tblDeliveryNote>();
             this.tblInvoiceItems = new HashSet<tblInvoiceItem>();
         }
-    
+
+        public int Index { get; set; }
         public int InvoiceID { get; set; }
         public string InvoiceNo { get; set; }
         public string BillingAddress { get; set; }

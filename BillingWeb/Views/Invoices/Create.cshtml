@@ -6,136 +6,80 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Create</h2>
+<h2>Invoice</h2>
 
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-
-    <div class="form-horizontal">
-        <h4>tblInvoice</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.InvoiceNo, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.InvoiceNo, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.InvoiceNo, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.BillingAddress, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.BillingAddress, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.BillingAddress, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.ShippingAddress, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ShippingAddress, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ShippingAddress, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.InvoiceType, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.InvoiceType, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.InvoiceType, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.GSTIN, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+    <table class="table">
+        <tr>
+            <td>
+                Invoice No
+            </td>
+            <td>
+                @Html.EditorFor(model => model.InvoiceNo, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+            </td>
+            <td>
+                Invoice Type
+            </td>
+            <td>
+                <div>
+                    @Html.RadioButtonFor(model => model.InvoiceType, "1", new { onchange = "RedirectToTypeChange('1')" }) Business 
+                </div>
+                <div>
+                    @Html.RadioButtonFor(model => model.InvoiceType, "2", new { onchange = "RedirectToTypeChange('2')" }) Individual
+                </div>             
+              
+            </td>
+            <td>
+                GSTIN
+            </td>
+            <td>
                 @Html.EditorFor(model => model.GSTIN, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.GSTIN, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.CustomerName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            </td>
+            <td>
+                CustomerName
+            </td>
+            <td>
                 @Html.EditorFor(model => model.CustomerName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CustomerName, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.ContactNumber, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ContactNumber, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ContactNumber, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Website, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Website, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Website, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.PaymentModeID, "PaymentModeID", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("PaymentModeID", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.PaymentModeID, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.IsPaid, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.IsPaid, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.IsPaid, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.IsOnCredit, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.IsOnCredit, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.IsOnCredit, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.InvoiceDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.InvoiceDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.InvoiceDate, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.PaymentExpectedBy, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.PaymentExpectedBy, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.PaymentExpectedBy, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Remarks, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Remarks, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Remarks, "", new { @class = "text-danger" })
-            </div>
-        </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Mobile
+            </td>
+            <td>@Html.EditorFor(model => model.ContactNumber, new { htmlAttributes = new { @class = "form-control" } })</td>
+            <td>Email</td>
+            <td>@Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })</td>
+            <td>Website</td>
+            <td>@Html.EditorFor(model => model.Website, new { htmlAttributes = new { @class = "form-control" } })</td>
+            <td>PaymentMode</td>
+            <td>@Html.DropDownList("PaymentModeID", null, htmlAttributes: new { @class = "form-control" })</td>
+        </tr>
+        <tr>
+            <td>IsOnCredit</td>
+            <td>@Html.EditorFor(model => model.IsOnCredit, new { htmlAttributes = new { @class = "form-control" } })</td>
+            <td>InvoiceDate</td>
+            <td>@Html.EditorFor(model => model.InvoiceDate, new { htmlAttributes = new { @class = "form-control" } })</td>
+            <td>Payment Exp Dt</td>
+            <td>@Html.EditorFor(model => model.PaymentExpectedBy, new { htmlAttributes = new { @class = "form-control" } })</td>
+            <td>IsPaid</td>
+            <td>@Html.EditorFor(model => model.IsPaid, new { htmlAttributes = new { @class = "form-control" } })</td>
+           
+        </tr>
+        <tr>
+            <td>BillingAddress</td>
+            <td>@Html.EditorFor(model => model.BillingAddress, new { htmlAttributes = new { @class = "form-control" } })</td>
+            <td>ShippingAddress</td>
+            <td>@Html.EditorFor(model => model.ShippingAddress, new { htmlAttributes = new { @class = "form-control" } })</td>
+            <td>@Html.CheckBox("SameBilling")  Shipping as Billing Address </td>           
+            <td>Reamrk</td>
+            <td colspan="2">@Html.EditorFor(model => model.Remarks, new { htmlAttributes = new { @class = "form-control" } })</td>
+        </tr>
+    </table>
+    <h2>Invoice Item</h2>
+    <div class="form-horizontal">    
 
         <table class="table" id="InvoiceItem">
             <tr>
@@ -163,8 +107,22 @@
                 <th>
                     Tax Amount
                 </th>
+             
+            </tr>
+            <tr>
+                <td> @Html.DropDownList("ProductID", (IEnumerable<SelectListItem>)ViewBag.ProductID, "Select", htmlAttributes: new { @class = "form-control", @onchange = "GetProductDetails()" }) </td>
+                <td> @Html.EditorFor(model => model.Make, new { htmlAttributes = new { @class = "form-control" } })</td>
+                <td> @Html.DropDownList("UnitID", (IEnumerable<SelectListItem>)ViewBag.UnitID, "Select", htmlAttributes: new { @class = "form-control", @onchange = "FillSize();" }) </td>
+                <td> @Html.DropDownList("SizeID", (IEnumerable<SelectListItem>)ViewBag.SizeID, "Select", htmlAttributes: new { @class = "form-control" }) </td>
+                <td> @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @class = "form-control" } })</td>
+                <td> @Html.EditorFor(model => model.RatePerUnit, new { htmlAttributes = new { @class = "form-control" } })</td>
+                <td> @Html.EditorFor(model => model.Tax, new { htmlAttributes = new { @class = "form-control" } }) @Html.HiddenFor(model => model.TaxID) </td>
+                <td> @Html.EditorFor(model => model.TaxAmount, new { htmlAttributes = new { @class = "form-control" } })</td>
+
+            </tr>
+            <tr>
                 <th>
-                    Discount(%)                
+                    Discount(%)
                 </th>
                 <th>
                     Discount Amount
@@ -186,35 +144,26 @@
                 </th>
             </tr>
             <tr>
-                <td> @Html.DropDownList("ProductID", (IEnumerable<SelectListItem>)ViewBag.ProductID, "Select", htmlAttributes: new { @class = "form-control", @onchange ="GetProductDetails()" }) </td>
-                <td> @Html.EditorFor(model => model.Make, new { htmlAttributes = new { @class = "form-control" } })</td>
-                <td> @Html.DropDownList("UnitID", (IEnumerable<SelectListItem>)ViewBag.UnitID, "Select", htmlAttributes: new { @class = "form-control", @onchange = "FillSize();" }) </td>
-                <td> @Html.DropDownList("SizeID", (IEnumerable<SelectListItem>)ViewBag.SizeID, "Select", htmlAttributes: new { @class = "form-control" }) </td>
-                <td> @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @class = "form-control" } })</td>
-                <td> @Html.EditorFor(model => model.RatePerUnit, new { htmlAttributes = new { @class = "form-control" } })</td>
-                <td> @Html.EditorFor(model => model.Tax, new { htmlAttributes = new { @class = "form-control" } }) @Html.HiddenFor(model => model.TaxID) </td>
-                <td> @Html.EditorFor(model => model.TaxAmount, new { htmlAttributes = new { @class = "form-control" } })</td>
                 <td> @Html.EditorFor(model => model.Discount, new { htmlAttributes = new { @class = "form-control" } })</td>
                 <td> @Html.EditorFor(model => model.DiscountAmount, new { htmlAttributes = new { @class = "form-control" } })</td>
                 <td> @Html.EditorFor(model => model.HSN_SAC, new { htmlAttributes = new { @class = "form-control" } })</td>
                 <td> @Html.EditorFor(model => model.SGST, new { htmlAttributes = new { @class = "form-control" } })</td>
                 <td> @Html.EditorFor(model => model.CGST, new { htmlAttributes = new { @class = "form-control" } })</td>
                 <td> @Html.EditorFor(model => model.Remark, new { htmlAttributes = new { @class = "form-control" } })</td>
-                <td> @Html.EditorFor(model => model.TotalAmount, new { htmlAttributes = new { @class = "form-control",@readonly="readonly" } })</td>
+                <td> @Html.EditorFor(model => model.TotalAmount, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</td>
             </tr>
-       </table>
+        </table>
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Add Row" name="submit" class="btn btn-default" />
-                <input type="submit" value="Delete Row" name="submit"  class="btn btn-default" />
+                <input type="submit" value="Delete Row" name="submit" class="btn btn-default" />
                 <input type="submit" value="Save Invoice" name="submit" class="btn btn-default" />
                 <input type="submit" value="Print Preview" name="submit" class="btn btn-default" />
                 <input type="submit" value="Print" name="submit" class="btn btn-default" />
             </div>
         </div>
-
     </div>
-    <table class="table" name="tblData">
+    <table class="table">
         <tr>
             <th>
                 Select
@@ -266,99 +215,98 @@
             </th>
 
         </tr>
-
-        @{
-            int i = 0;
-            foreach (var item in Model.tblInvoiceItemDetails)
+       
+        @{ int i = 0;
+            foreach (var item in Model.tblInvoiceItems)
             {
+        <tr>
+            <td> @Html.CheckBox("[" + i + "].IsDeleted", item.IsDeleted) </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.tblProduct.ProductName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Make)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.tblUnit.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.tblSize.SizeName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RatePerUnit)
+            </td>
 
 
-                <tr>
-                    <td> @Html.CheckBox("[" + i + "].IsDeleted", item.IsDeleted) </td>
-                    <td> @Html.TextBox("[" + i + "].ProductName", item.ProductName) </td>
-                    <td> @Html.TextBox("[" + i + "].Make", item.Make)</td>
-                    <td> @Html.TextBox("[" + i + "].UnitName", item.UnitName) </td>
-                    <td> @Html.TextBox("[" + i + "].SizeName", item.SizeName)</td>
-                    <td> @Html.TextBox("[" + i + "].Quantity", item.Quantity)</td>
-                    <td> @Html.TextBox("[" + i + "].RatePerUnit",item.RatePerUnit)</td>
-                    <td> @Html.TextBox("[" + i + "].Tax", item.Tax)</td>
-                    <td> @Html.TextBox("[" + i + "].TaxAmount",item.TaxAmount)</td>
-                    <td> @Html.TextBox("[" + i + "].Discount", item.Discount)</td>
-                    <td> @Html.TextBox("[" + i + "].DiscountAmount", item.DiscountAmount)</td>
-                    <td>
-                        @Html.TextBox("[" + i + "].HSN_SAC", item.HSN_SAC)
-                    </td>
-                    <td>
-                        @Html.TextBox("[" + i + "].SGST", item.SGST)
-                    </td>
-                    <td>
-                       @Html.TextBox("[" + i + "].CGST", item.CGST)
-                    </td>
-                    <td>
-                        @Html.TextBox("[" + i + "].Remark", item.Remark)
-                    </td>
-                    <td>
-                        @Html.TextBox("[" + i + "].TotalAmount", item.TotalAmount)
-                        @Html.TextBox("[" + i + "].UnitID", item.UnitID, new { style = "display: none;" })
-                        @Html.TextBox("[" + i + "].SizeID", item.SizeID, new { style = "display: none;" })
-                        @Html.TextBox("[" + i + "].TaxID", item.TaxID, new { style = "display: none;" })
-                    </td>
-                </tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tax)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TaxAmount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Discount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DiscountAmount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HSN_SAC)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SGST)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CGST)
+            </td>
+
+
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalAmount)
+            </td>
+
+
+            @Html.Hidden("[" + i + "].ProductName", item.ProductName)
+            @Html.Hidden("[" + i + "].Make", item.Make)
+            @Html.Hidden("[" + i + "].UnitName", item.UnitName)
+            @Html.Hidden("[" + i + "].SizeName", item.SizeName)
+            @Html.Hidden("[" + i + "].Quantity", item.Quantity)
+            @Html.Hidden("[" + i + "].RatePerUnit", item.RatePerUnit)
+            @Html.Hidden("[" + i + "].Tax", item.Tax)
+            @Html.Hidden("[" + i + "].TaxAmount", item.TaxAmount)
+            @Html.Hidden("[" + i + "].Discount", item.Discount)
+            @Html.Hidden("[" + i + "].DiscountAmount", item.DiscountAmount)
+
+            @Html.Hidden("[" + i + "].HSN_SAC", item.HSN_SAC)
+
+
+            @Html.Hidden("[" + i + "].SGST", item.SGST)
+
+
+            @Html.Hidden("[" + i + "].CGST", item.CGST)
+
+
+            @Html.Hidden("[" + i + "].Remark", item.Remark)
+
+
+            @Html.Hidden("[" + i + "].TotalAmount", item.TotalAmount)
+            @Html.Hidden("[" + i + "].UnitID", item.UnitID)
+            @Html.Hidden("[" + i + "].SizeID", item.SizeID)
+            @Html.Hidden("[" + i + "].TaxID", item.TaxID)
+
+        </tr>
                 i++;
             }
-                }
-        @*@foreach (var item in Model.tblInvoiceItems)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.tblProduct.ProductName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Make)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.tblUnit.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.tblSize.SizeName)
-                </td>  
-                <td>
-                    @Html.DisplayFor(modelItem => item.Quantity)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.RatePerUnit)
-                </td>
-              
-                <td>
-                    @Html.DisplayFor(modelItem => item.Tax)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TaxAmount)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Discount)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DiscountAmount)
-                </td>            
-                <td>
-                    @Html.DisplayFor(modelItem => item.HSN_SAC)
-                </td>             
-                <td>
-                    @Html.DisplayFor(modelItem => item.SGST)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CGST)
-                </td>          
-           
-                <td>
-                    @Html.DisplayFor(modelItem => item.TotalAmount)
-                </td>            
-            </tr>
-        }*@
+        }
 
     </table>
     <script type="text/javascript">
+        function RedirectToTypeChange() {
+
+        }
         function FillSize() {
             var stateId = $("#UnitID").val();
             $.ajax
@@ -372,13 +320,13 @@
                 }),
                 success: function (data) {
                     //  $("#SubCategory").html("");
-                    alert(data);
+                    // alert(data);
                     $("#SizeID").html("");
                     var district = '<option value="">Select</option>';
                     for (var i = 0; i < data.length; i++) {
                         district = district + '<option value=' + data[i].val + '>' + data[i].label + '</option>';
                     }
-                    // district = district + '</select>';  
+                    // district = district + '</select>';
                     $('#SizeID').html(district);
                 },
                 error: function () {
@@ -397,10 +345,9 @@
                 data: JSON.stringify({
                     prodID: +stateId
                 }),
-                success: function (data)
-                {
-                    alert(data.TaxPercentage);
-                    
+                success: function (data) {
+                    // alert(data.TaxPercentage);
+
                 },
                 error: function () {
                     alert("Whooaaa! Something went wrong..")
@@ -408,7 +355,7 @@
             });
         }
     </script>
-}
+            }
 
 
 
