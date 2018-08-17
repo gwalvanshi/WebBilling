@@ -194,6 +194,7 @@
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\ProductSubCategoriesController.cs" />
     <Compile Include="Controllers\SizesController.cs" />
+    <Compile Include="Controllers\StocksController.cs" />
     <Compile Include="Controllers\TaxesController.cs" />
     <Compile Include="Controllers\UnitsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
@@ -451,6 +452,11 @@
     <Content Include="Views\ProductSubCategories\Delete.cshtml" />
     <Content Include="Views\ProductSubCategories\Edit.cshtml" />
     <Content Include="Views\ProductSubCategories\Index.cshtml" />
+    <Content Include="Views\Stocks\Create.cshtml" />
+    <Content Include="Views\Stocks\Delete.cshtml" />
+    <Content Include="Views\Stocks\Details.cshtml" />
+    <Content Include="Views\Stocks\Edit.cshtml" />
+    <Content Include="Views\Stocks\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -11,10 +11,21 @@
 <script src="@Url.Content("~/Scripts/gridmvc.min.js")"></script>
 
 
+<div>
+    @if (((tblProduct)ViewBag.Product).ProductID > 0)
+    {
+        Html.RenderPartial("Edit", (tblProduct)ViewBag.Product);
+    }
+    else
+    {
+        Html.RenderPartial("Create", (tblProduct)ViewBag.Product);
+    }
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+</div>
+@if (TempData["Success"] != null)
+            {
+    <p class="alert alert-success" id="successMessage">@TempData["Success"]</p>
+}
 <div class="code-cut">
     @Html.Grid(Model).Columns(columns =>
 {
@@ -85,25 +96,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.CGST)
             </th>
-            @*<th>
-                    @Html.DisplayNameFor(model => model.IsActive)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.CreatedOn)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.UpdatedOn)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.tblUser.UserName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.tblUser1.UserName)
-                </th>
-    <th></th>
-        </tr>*@
+          
 
-@*@foreach (var item in Model)
+@foreach (var item in Model)
 {
     <tr>
         <td>
@@ -145,36 +140,12 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.CGST)
-        </td>*@
-
-        @*<td>
-                @Html.DisplayFor(modelItem => item.IsActive)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedOn)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UpdatedOn)
-            </td>
-
-            <td>
-                @Html.DisplayFor(modelItem => item.tblUser.UserName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.tblUser1.UserName)
-            </td>*@
-        @*<td>
-            @Html.ActionLink("Edit", "Edit", new
-       {
-           id = item.ProductID
-       }) |
-            @Html.ActionLink("Details", "Details", new
-       {
-           id = item.ProductID
-       }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.ProductID })
         </td>
-    </tr>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.ProductID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.ProductID }, new { onclick = "return confirm('Are you sure you wish to delete this record?');" })
+        </td>
+      </tr>
 }
 
 </table>*@

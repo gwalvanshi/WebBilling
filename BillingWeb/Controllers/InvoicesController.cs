@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using BillingWeb;
 using System.Configuration;
+using System.Text;
 
 namespace BillingWeb.Controllers
 {
@@ -63,7 +64,7 @@ namespace BillingWeb.Controllers
 
             List<tblInvoiceItem> tblItem = new List<tblInvoiceItem>();
             tblInvoiceItem objtblInvoiceItem = new tblInvoiceItem();
-          
+            tblUser objSource = (tblUser)Session["UserDetails"];
             if (submit == "Add Row")
             {
                 tblProduct objpro = db.tblProducts.Where(p => p.ProductID == tblInvoice.ProductID).FirstOrDefault();
@@ -105,7 +106,7 @@ namespace BillingWeb.Controllers
             }
             if (submit == "Save Invoice")
             {
-
+                GetInvoiceDetails(tblInvoice, invItem, objSource.Id);
             }
             if (submit == "Print Preview")
             {
@@ -232,6 +233,119 @@ namespace BillingWeb.Controllers
                            loc.tblTax.TaxPercentage
                         }).FirstOrDefault();
             return Json(prod);
+        }
+
+        public bool GetInvoiceDetails(tblInvoice objtblInvoice, IList<tblInvoiceItem> tblInvoiceItemList, int userID)
+        {
+            bool isValid = false;
+            try
+            {
+                DataTable dtInvoice = new DataTable();
+                dtInvoice.TableName = "Invoice";
+                dtInvoice.Columns.Add("CustomerName", typeof(String));
+                dtInvoice.Columns.Add("ContactNumber", typeof(String));
+                dtInvoice.Columns.Add("Email", typeof(String));
+                dtInvoice.Columns.Add("Website", typeof(String));
+                dtInvoice.Columns.Add("PaymentModeID", typeof(Int32));
+                dtInvoice.Columns.Add("IsPaid", typeof(Int32));
+                dtInvoice.Columns.Add("IsOnCredit", typeof(Int32));
+                dtInvoice.Columns.Add("InvoiceDate", typeof(String));
+                dtInvoice.Columns.Add("PaymentExpectedBy", typeof(String));
+                dtInvoice.Columns.Add("Remarks", typeof(String));
+                dtInvoice.Columns.Add("InvoiceNo", typeof(String));
+                dtInvoice.Columns.Add("BillingAddress", typeof(String));
+                dtInvoice.Columns.Add("ShippingAddress", typeof(String));
+                dtInvoice.Columns.Add("InvoiceType", typeof(Int32));
+                dtInvoice.Columns.Add("GSTIN", typeof(String));
+
+                DataRow rowInvoice = dtInvoice.NewRow();
+
+
+                rowInvoice["CustomerName"] = objtblInvoice.CustomerName.Trim();
+                rowInvoice["ContactNumber"] = objtblInvoice.ContactNumber.Trim();
+                rowInvoice["Email"] = objtblInvoice.Email.Trim();
+                rowInvoice["Website"] = objtblInvoice.Website.Trim();
+                rowInvoice["PaymentModeID"] = Convert.ToInt32(objtblInvoice.PaymentModeID);
+                rowInvoice["IsPaid"] = objtblInvoice.IsPaid;
+                rowInvoice["IsOnCredit"] = objtblInvoice.IsOnCredit;
+                rowInvoice["InvoiceDate"] = objtblInvoice.InvoiceDate;
+                rowInvoice["PaymentExpectedBy"] = objtblInvoice.PaymentExpectedBy;
+                rowInvoice["Remarks"] = objtblInvoice.Remarks;
+                rowInvoice["InvoiceNo"] = objtblInvoice.InvoiceNo;
+                rowInvoice["BillingAddress"] = objtblInvoice.BillingAddress.Trim();
+                rowInvoice["ShippingAddress"] = objtblInvoice.ShippingAddress.Trim();
+                rowInvoice["InvoiceType"] = objtblInvoice.InvoiceType;
+                rowInvoice["GSTIN"] = objtblInvoice.GSTIN.Trim();
+
+                dtInvoice.Rows.Add(rowInvoice);
+
+                DataTable dt1 = new DataTable();
+                dt1.TableName = "InvoiceDetails";
+                dt1.Columns.Add("InvoiceItemID", typeof(Int32));
+                dt1.Columns.Add("InvoiceID", typeof(Int32));
+                dt1.Columns.Add("ProductID", typeof(Int32));
+                dt1.Columns.Add("Product", typeof(String));
+                dt1.Columns.Add("Make", typeof(String));
+                dt1.Columns.Add("Quantity", typeof(Decimal));
+                dt1.Columns.Add("UnitID", typeof(String));
+                dt1.Columns.Add("SizeId", typeof(Int32));
+                dt1.Columns.Add("Size", typeof(String));
+                dt1.Columns.Add("RatePerUnit", typeof(Decimal));
+                dt1.Columns.Add("TaxID", typeof(Int32));
+                dt1.Columns.Add("HSN_SAC", typeof(Int32));
+                dt1.Columns.Add("TaxPercentage", typeof(Int32));
+                dt1.Columns.Add("TaxAmount", typeof(Decimal));
+                dt1.Columns.Add("Discount", typeof(Decimal));
+                dt1.Columns.Add("DiscountAmount", typeof(Decimal));
+                dt1.Columns.Add("TotalAmount", typeof(Decimal));
+                dt1.Columns.Add("Remark", typeof(String));
+                dt1.Columns.Add("Delete", typeof(Boolean));
+                DataRow row;
+                foreach (var item in tblInvoiceItemList)
+                {
+                    row = dt1.NewRow();
+                    row["InvoiceItemID"] = item.InvoiceItemID;
+                    row["InvoiceID"] = objtblInvoice.InvoiceID;
+                    row["ProductID"] = item.ProductID;
+                    row["Product"] = item.ProductName;
+                    row["Make"] = item.Make;
+                    row["Quantity"] = item.Quantity;
+                    row["UnitID"] = item.UnitID;
+                    row["TaxID"] = item.TaxID;
+                    row["SizeId"] = item.SizeID;
+                    row["RatePerUnit"] = item.RatePerUnit;
+                    row["HSN_SAC"] = item.HSN_SAC;
+                    row["TaxPercentage"] = item.Tax;
+                    row["Discount"] = item.Discount;
+                    row["TaxAmount"] = item.TaxAmount;
+                    row["DiscountAmount"] = item.DiscountAmount;
+                    row["TotalAmount"] = item.TotalAmount;
+                    row["Remark"] = item.Remark;
+                    row["Delete"] = item.IsDeleted;
+                    dt1.Rows.Add(row);
+
+                }
+                System.IO.StringWriter swSQL;
+                DataTable dtInvoiceItems = dt1;
+                StringBuilder sbSQL1 = new StringBuilder();
+                swSQL = new System.IO.StringWriter(sbSQL1);
+                dtInvoiceItems.WriteXml(swSQL);
+                swSQL.Dispose();
+
+                System.IO.StringWriter swSQL2;
+
+                StringBuilder sbSQL2 = new StringBuilder();
+                swSQL2 = new System.IO.StringWriter(sbSQL2);
+                dtInvoice.WriteXml(swSQL2);
+                swSQL2.Dispose();
+                db.spInvoice_InvoiceEntrySave(sbSQL2.ToString(), sbSQL1.ToString(), userID, objtblInvoice.InvoiceID);
+                isValid = true;
+            }
+            catch (Exception)
+            {
+                isValid = false;
+            }
+            return isValid;
         }
     }
 }

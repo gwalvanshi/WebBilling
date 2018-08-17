@@ -17,7 +17,9 @@ namespace BillingWeb.Controllers
         // GET: Products
         public ActionResult Index()
         {
+            FillDropdown();
             var tblProducts = db.tblProducts.Include(t => t.tblProductCategory).Include(t => t.tblProductSubCategory).Include(t => t.tblSize).Include(t => t.tblTax).Include(t => t.tblUnit).Include(t => t.tblUser).Include(t => t.tblUser1);
+            ViewBag.Product = new tblProduct();
             return View(tblProducts.ToList());
         }
         public JsonResult GetSubCategories(int Id)
@@ -53,16 +55,19 @@ namespace BillingWeb.Controllers
         // GET: Products/Create
         public ActionResult Create()
         {
+            FillDropdown();
+            return View();
+        }
+
+        public void FillDropdown()
+        {
             ViewBag.ProductCategoryID = new SelectList(db.tblProductCategories, "ProductCategoryID", "CategoryName");
             ViewBag.ProductSubCategoryID = new SelectList(db.tblProductSubCategories, "ProductSubCategoryID", "SubCategoryName");
             ViewBag.SizeID = new SelectList(db.tblSizes, "SizeID", "SizeName");
             ViewBag.TaxID = new SelectList(db.tblTaxes, "TaxID", "TaxName");
             ViewBag.UnitID = new SelectList(db.tblUnits, "UnitID", "Name");
-            ViewBag.CreatedBy = new SelectList(db.tblUsers, "Id", "UserName");
-            ViewBag.UpdatedBy = new SelectList(db.tblUsers, "Id", "UserName");
-            return View();
+         
         }
-
         // POST: Products/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -88,14 +93,14 @@ namespace BillingWeb.Controllers
             ViewBag.SizeID = new SelectList(db.tblSizes, "SizeID", "SizeName", tblProduct.SizeID);
             ViewBag.TaxID = new SelectList(db.tblTaxes, "TaxID", "TaxName", tblProduct.TaxID);
             ViewBag.UnitID = new SelectList(db.tblUnits, "UnitID", "Name", tblProduct.UnitID);
-            ViewBag.CreatedBy = new SelectList(db.tblUsers, "Id", "UserName", tblProduct.CreatedBy);
-            ViewBag.UpdatedBy = new SelectList(db.tblUsers, "Id", "UserName", tblProduct.UpdatedBy);
+        
             return View(tblProduct);
         }
 
         // GET: Products/Edit/5
         public ActionResult Edit(int? id)
         {
+           // FillDropdown();
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -105,14 +110,19 @@ namespace BillingWeb.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.Product = tblProduct;
+
             ViewBag.ProductCategoryID = new SelectList(db.tblProductCategories, "ProductCategoryID", "CategoryName", tblProduct.ProductCategoryID);
             ViewBag.ProductSubCategoryID = new SelectList(db.tblProductSubCategories, "ProductSubCategoryID", "SubCategoryName", tblProduct.ProductSubCategoryID);
             ViewBag.SizeID = new SelectList(db.tblSizes, "SizeID", "SizeName", tblProduct.SizeID);
             ViewBag.TaxID = new SelectList(db.tblTaxes, "TaxID", "TaxName", tblProduct.TaxID);
-            ViewBag.UnitID = new SelectList(db.tblUnits, "UnitID", "Name", tblProduct.UnitID);
-            ViewBag.CreatedBy = new SelectList(db.tblUsers, "Id", "UserName", tblProduct.CreatedBy);
-            ViewBag.UpdatedBy = new SelectList(db.tblUsers, "Id", "UserName", tblProduct.UpdatedBy);
-            return View(tblProduct);
+            ViewBag.UnitID = new SelectList(db.tblUnits, "UnitID", "Name", tblProduct.UnitID);         
+
+           
+            var tblProducts = db.tblProducts.Include(t => t.tblProductCategory).Include(t => t.tblProductSubCategory).Include(t => t.tblSize).Include(t => t.tblTax).Include(t => t.tblUnit).Include(t => t.tblUser).Include(t => t.tblUser1);
+
+            return View("Index", tblProducts.ToList());
+            //return View(tblProduct);
         }
 
         // POST: Products/Edit/5
@@ -139,8 +149,7 @@ namespace BillingWeb.Controllers
             ViewBag.SizeID = new SelectList(db.tblSizes, "SizeID", "SizeName", tblProduct.SizeID);
             ViewBag.TaxID = new SelectList(db.tblTaxes, "TaxID", "TaxName", tblProduct.TaxID);
             ViewBag.UnitID = new SelectList(db.tblUnits, "UnitID", "Name", tblProduct.UnitID);
-            ViewBag.CreatedBy = new SelectList(db.tblUsers, "Id", "UserName", tblProduct.CreatedBy);
-            ViewBag.UpdatedBy = new SelectList(db.tblUsers, "Id", "UserName", tblProduct.UpdatedBy);
+          
             return View(tblProduct);
         }
 
