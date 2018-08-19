@@ -11,7 +11,8 @@ namespace BillingWeb
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class tblTax
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -26,7 +27,11 @@ namespace BillingWeb
         }
     
         public int TaxID { get; set; }
+        [Required(ErrorMessage = "Please enter  Tax Name.")]
+        [Display(Name = "Tax Name")]
         public string TaxName { get; set; }
+        [RegularExpression(@"^[0-9]+(\.[0-9]{1,2})$", ErrorMessage = "Valid Decimal number with maximum 2 decimal places.")]
+        [Display(Name = "Tax Percentage")]
         public Nullable<decimal> TaxPercentage { get; set; }
         public Nullable<System.DateTime> EffectiveFrom { get; set; }
         public string Description { get; set; }
