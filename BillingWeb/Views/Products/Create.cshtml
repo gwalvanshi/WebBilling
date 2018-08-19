@@ -12,28 +12,43 @@
 @using (Html.BeginForm("Create", "Products", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
-   
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     <table class="table">
+        <tr>
 
-    <tr>
-        <td>
-            Product Name
-        </td>
-        <td>Product Category</td>
-        <td>Sub Category</td>
-        <td>Make</td>
-        <td>Unit</td>
-    </tr>
+            <td>
+                Product Name
+            </td>
+            <td>Product Category</td>
+            <td>Sub Category</td>
+            <td>Make</td>
+            <td>Unit</td>
+        </tr>
         <tr>
             <td>
                 @Html.EditorFor(model => model.ProductName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ProductName, "", new { @class = "text-danger" })
             </td>
-            <td>@Html.DropDownList("ProductCategoryID", (IEnumerable<SelectListItem>)ViewBag.ProductCategoryID, "Select", htmlAttributes: new { @class = "form-control" })</td>
-            <td>@Html.DropDownList("ProductSubCategoryID", (IEnumerable<SelectListItem>)ViewBag.ProductSubCategoryID, "Select", htmlAttributes: new { @class = "form-control" })</td>
-            <td>@Html.EditorFor(model => model.Make, new { htmlAttributes = new { @class = "form-control" } })</td>
-            <td>@Html.DropDownList("UnitID", (IEnumerable<SelectListItem>)ViewBag.UnitID, "Select", htmlAttributes: new { @class = "form-control" })</td>
+            <td>
+                @Html.DropDownList("ProductCategoryID", ViewData["ProductCategoryID"] as List<SelectListItem>, "Select", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ProductCategoryID, "", new { @class = "text-danger" })
+
+            </td>
+            <td>
+
+                @Html.DropDownList("ProductSubCategoryID", ViewData["ProductSubCategoryID"] as List<SelectListItem>, "Select", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ProductSubCategoryID, "", new { @class = "text-danger" })
+            </td>
+            <td>
+                @Html.EditorFor(model => model.Make, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Make, "", new { @class = "text-danger" })
+            </td>
+            <td>
+                @Html.DropDownList("UnitID", ViewData["UnitID"] as List<SelectListItem>, "Select", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.UnitID, "", new { @class = "text-danger" })
+            </td>
         </tr>
-        <tr>           
+        <tr>
             <td>Size</td>
             <td>RatePerUnit</td>
             <td>Discount</td>
@@ -41,24 +56,49 @@
             <td>SGST</td>
         </tr>
         <tr>
-          
-            <td>@Html.DropDownList("SizeID", (IEnumerable<SelectListItem>)ViewBag.SizeID, "Select", htmlAttributes: new { @class = "form-control" })</td>
-            <td>@Html.EditorFor(model => model.RatePerUnit, new { htmlAttributes = new { @class = "form-control" } })</td>
-            <td>@Html.EditorFor(model => model.Discount, new { htmlAttributes = new { @class = "form-control" } })</td>
-            <td>@Html.DropDownList("TaxID", null, htmlAttributes: new { @class = "form-control" })</td>
-            <td>@Html.EditorFor(model => model.SGST, new { htmlAttributes = new { @class = "form-control" } })</td>
+
+            <td>
+                @Html.DropDownList("SizeID", ViewData["SizeID"] as List<SelectListItem>, "Select", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.SizeID, "", new { @class = "text-danger" })
+            </td>
+            <td>
+                @Html.EditorFor(model => model.RatePerUnit, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.RatePerUnit, "", new { @class = "text-danger" })
+            </td>
+            <td>
+                @Html.EditorFor(model => model.Discount, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Discount, "", new { @class = "text-danger" })
+            </td>
+            <td>
+                @Html.DropDownList("TaxID", ViewData["TaxID"] as List<SelectListItem>, "Select", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.TaxID, "", new { @class = "text-danger" })
+            </td>
+            <td>
+                @Html.EditorFor(model => model.SGST, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SGST, "", new { @class = "text-danger" })
+            </td>
         </tr>
-        <tr>           
+        <tr>
             <td>CGST</td>
             <td>ProductDescription</td>
             <td colspan="3">Remark</td>
         </tr>
-        <tr>           
-            <td>@Html.EditorFor(model => model.CGST, new { htmlAttributes = new { @class = "form-control" } })</td>
-            <td>@Html.EditorFor(model => model.ProductDescription, new { htmlAttributes = new { @class = "form-control" } })</td>
-            <td colspan="3">@Html.EditorFor(model => model.Remark, new { htmlAttributes = new { @class = "form-control" } })</td>
+        <tr>
+            <td>
+                @Html.EditorFor(model => model.CGST, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CGST, "", new { @class = "text-danger" })
+            </td>
+            <td>
+                @Html.EditorFor(model => model.ProductDescription, new { htmlAttributes = new { @class = "form-control" } })
+
+                @Html.ValidationMessageFor(model => model.ProductDescription, "", new { @class = "text-danger" })
+            </td>
+            <td colspan="3">
+                @Html.EditorFor(model => model.Remark, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Remark, "", new { @class = "text-danger" })
+            </td>
         </tr>
-        
+
     </table>
 
     <div class="form-group">

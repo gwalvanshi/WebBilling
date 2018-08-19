@@ -17,23 +17,28 @@ namespace BillingWeb.Controllers
         // GET: Products
         public ActionResult Index()
         {
-            FillDropdown();
-            var tblProducts = db.tblProducts.Include(t => t.tblProductCategory).Include(t => t.tblProductSubCategory).Include(t => t.tblSize).Include(t => t.tblTax).Include(t => t.tblUnit).Include(t => t.tblUser).Include(t => t.tblUser1);
+            FillDropdownProductCategory(null);
+            FillDropdownProductSubCategory(0, null);
+            FillUnit(null);
+            FillSize(null,null);
+            FillTax(null);
+
+             var tblProducts = db.tblProducts.Include(t => t.tblProductCategory).Include(t => t.tblProductSubCategory).Include(t => t.tblSize).Include(t => t.tblTax).Include(t => t.tblUnit).Include(t => t.tblUser).Include(t => t.tblUser1).Where(a=>a.IsActive==true);
             ViewBag.Product = new tblProduct();
             return View(tblProducts.ToList());
         }
         public JsonResult GetSubCategories(int Id)
         {
             var productSubCategories = from s in db.tblProductSubCategories
-                        where s.ProductCategoryID == Id
-                        select s;
+                                       where s.ProductCategoryID == Id
+                                       select s;
             return Json(new SelectList(productSubCategories.ToArray(), "ProductSubCategoryID", "SubCategoryName"), JsonRequestBehavior.AllowGet);
         }
         public JsonResult GetSize(int Id)
         {
             var size = from s in db.tblSizes
-                                       where s.UnitID == Id
-                                       select s;
+                       where s.UnitID == Id
+                       select s;
             return Json(new SelectList(size.ToArray(), "SizeID", "SizeName"), JsonRequestBehavior.AllowGet);
         }
 
@@ -55,7 +60,11 @@ namespace BillingWeb.Controllers
         // GET: Products/Create
         public ActionResult Create()
         {
-            FillDropdown();
+            FillDropdownProductCategory(null);
+            FillDropdownProductSubCategory(0, null);
+            FillUnit(null);
+            FillSize(null, null);
+            FillTax(null);
             return View();
         }
 
@@ -87,16 +96,45 @@ namespace BillingWeb.Controllers
                 ViewBag.Product = new tblProduct();
                 return RedirectToAction("Index");
                 
-            }
-            ViewBag.ProductCategoryID = new SelectList(db.tblProductCategories, "ProductCategoryID", "CategoryName", tblProduct.ProductCategoryID);
-            ViewBag.ProductSubCategoryID = new SelectList(db.tblProductSubCategories, "ProductSubCategoryID", "SubCategoryName", tblProduct.ProductSubCategoryID);
-            ViewBag.SizeID = new SelectList(db.tblSizes, "SizeID", "SizeName", tblProduct.SizeID);
-            ViewBag.TaxID = new SelectList(db.tblTaxes, "TaxID", "TaxName", tblProduct.TaxID);
-            ViewBag.UnitID = new SelectList(db.tblUnits, "UnitID", "Name", tblProduct.UnitID);
-        
+            }       
+
+            FillDropdownProductCategory(tblProduct.ProductCategoryID);
+            FillDropdownProductSubCategory(Convert.ToInt32(tblProduct.ProductCategoryID), tblProduct.ProductSubCategoryID);
+            FillUnit(tblProduct.UnitID);
+            FillSize(tblProduct.UnitID, tblProduct.SizeID);
+            FillTax(tblProduct.TaxID);
             return View(tblProduct);
         }
 
+        public void FillDropdownProductCategory(int ? ProductCategoryID)
+        {       
+            var list = new SelectList(db.tblProductCategories.ToList(), "ProductCategoryID", "CategoryName", ProductCategoryID);
+            ViewData["ProductCategoryID"] = list;
+        }
+        public void FillDropdownProductSubCategory(int ProductCategoryID,int ? ProductSubCategoryID)
+        {
+            var items = db.tblProductSubCategories.Where(a => a.ProductCategoryID == ProductCategoryID).ToList();
+            var list = new SelectList(items, "ProductSubCategoryID", "SubCategoryName", ProductSubCategoryID);
+            ViewData["ProductSubCategoryID"] = list;
+        }
+        public void FillUnit(int ? UnitID)
+        {
+            var items = db.tblUnits.ToList();
+            var list = new SelectList(items, "UnitID", "Name", UnitID);
+            ViewData["UnitID"] = list;
+        }
+        public void FillSize(int ? UnitID,int ? SizeID)
+        {
+            var items = db.tblSizes.Where(a=>a.UnitID== UnitID).ToList();
+            var list = new SelectList(items, "SizeID", "SizeName", SizeID);
+            ViewData["SizeID"] = list;
+        }
+        public void FillTax(int? TaxID)
+        {
+            var items = db.tblTaxes.ToList();
+            var list = new SelectList(items, "TaxID", "TaxName", TaxID);
+            ViewData["TaxID"] = list;
+        }
         // GET: Products/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -112,14 +150,13 @@ namespace BillingWeb.Controllers
             }
             ViewBag.Product = tblProduct;
 
-            ViewBag.ProductCategoryID = new SelectList(db.tblProductCategories, "ProductCategoryID", "CategoryName", tblProduct.ProductCategoryID);
-            ViewBag.ProductSubCategoryID = new SelectList(db.tblProductSubCategories, "ProductSubCategoryID", "SubCategoryName", tblProduct.ProductSubCategoryID);
-            ViewBag.SizeID = new SelectList(db.tblSizes, "SizeID", "SizeName", tblProduct.SizeID);
-            ViewBag.TaxID = new SelectList(db.tblTaxes, "TaxID", "TaxName", tblProduct.TaxID);
-            ViewBag.UnitID = new SelectList(db.tblUnits, "UnitID", "Name", tblProduct.UnitID);         
+            FillDropdownProductCategory(tblProduct.ProductCategoryID);
+            FillDropdownProductSubCategory(Convert.ToInt32(tblProduct.ProductCategoryID), tblProduct.ProductSubCategoryID);
+            FillUnit(tblProduct.UnitID);
+            FillSize(tblProduct.UnitID, tblProduct.SizeID);
+            FillTax(tblProduct.TaxID);
 
-           
-            var tblProducts = db.tblProducts.Include(t => t.tblProductCategory).Include(t => t.tblProductSubCategory).Include(t => t.tblSize).Include(t => t.tblTax).Include(t => t.tblUnit).Include(t => t.tblUser).Include(t => t.tblUser1);
+            var tblProducts = db.tblProducts.Include(t => t.tblProductCategory).Include(t => t.tblProductSubCategory).Include(t => t.tblSize).Include(t => t.tblTax).Include(t => t.tblUnit).Include(t => t.tblUser).Include(t => t.tblUser1).Where(a => a.IsActive == true); 
 
             return View("Index", tblProducts.ToList());
             //return View(tblProduct);
@@ -144,12 +181,12 @@ namespace BillingWeb.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.ProductCategoryID = new SelectList(db.tblProductCategories, "ProductCategoryID", "CategoryName", tblProduct.ProductCategoryID);
-            ViewBag.ProductSubCategoryID = new SelectList(db.tblProductSubCategories, "ProductSubCategoryID", "SubCategoryName", tblProduct.ProductSubCategoryID);
-            ViewBag.SizeID = new SelectList(db.tblSizes, "SizeID", "SizeName", tblProduct.SizeID);
-            ViewBag.TaxID = new SelectList(db.tblTaxes, "TaxID", "TaxName", tblProduct.TaxID);
-            ViewBag.UnitID = new SelectList(db.tblUnits, "UnitID", "Name", tblProduct.UnitID);
-          
+            FillDropdownProductCategory(tblProduct.ProductCategoryID);
+            FillDropdownProductSubCategory(Convert.ToInt32(tblProduct.ProductCategoryID), tblProduct.ProductSubCategoryID);
+            FillUnit(tblProduct.UnitID);
+            FillSize(tblProduct.UnitID, tblProduct.SizeID);
+            FillTax(tblProduct.TaxID);
+
             return View(tblProduct);
         }
 
@@ -159,13 +196,23 @@ namespace BillingWeb.Controllers
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+            }         
+
             tblProduct tblProduct = db.tblProducts.Find(id);
+            tblUser objSource = (tblUser)Session["UserDetails"];
             if (tblProduct == null)
             {
                 return HttpNotFound();
             }
-            return View(tblProduct);
+            else
+            {
+                tblProduct.IsActive = false;
+                tblProduct.UpdatedBy = objSource.Id;
+                tblProduct.UpdatedOn = DateTime.Now;
+                db.Entry(tblProduct).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
         }
 
         // POST: Products/Delete/5
